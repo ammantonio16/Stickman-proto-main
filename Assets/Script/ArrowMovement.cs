@@ -8,34 +8,41 @@ public class ArrowMovement : MonoBehaviour
     public float speed;
     public float range;
     public Transform arrowPosition;
+    Rigidbody2D rb;
+
+    Vector2 limitRange;
+    bool drag = true;
+    Vector3 dis;
     
 
-    Rigidbody2D rb;
-    bool drag = true;
+    
     void Start()
-    {
-        arrow.AddComponent<Rigidbody2D>();
-        arrow.AddComponent<BoxCollider2D>();
+    { 
+        rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
     }
-    void Update()
-    {
-        
-    }
+    
     void OnMouseDrag()
     {
-        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 dis = new Vector2 (pos.x - arrowPosition.position.x, pos.y - arrowPosition.position.y);
+        if (!drag)
+            return;
+        var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        dis = pos - arrowPosition.position;
+        dis.z = 0;
         
-        if (dis.magnitude < range)
+        if (dis.magnitude > range)
         {
+            dis.z = 0;
             dis = dis.normalized * range;
         }
-        transform.position = new Vector2 (dis.x + arrowPosition.position.x, dis.y + arrowPosition.position.y);
-        
+        transform.position = dis + arrowPosition.position;   
     }
     void OnMouseUp()
     {
-        
+        if (!drag)
+            return;
+        drag = false;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.velocity = -dis.normalized * speed * dis.magnitude * speed / range;
     }
 }
