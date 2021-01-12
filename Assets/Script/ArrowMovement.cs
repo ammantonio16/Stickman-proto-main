@@ -4,41 +4,44 @@ using UnityEngine;
 
 public class ArrowMovement : MonoBehaviour
 {
-    public GameObject arrow;
     public float speed;
     public float range;
     public Transform arrowPosition;
     Rigidbody2D rb;
 
-    Vector2 limitRange;
+    
     bool drag = true;
     Vector3 dis;
-    
+    SpriteRenderer sprite;
 
     
     void Start()
     { 
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.enabled = false;
     }
     
     void OnMouseDrag()
     {
+        sprite.enabled = false;
         if (!drag)
             return;
         var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         dis = pos - arrowPosition.position;
         dis.z = 0;
-        
+
         if (dis.magnitude > range)
         {
             dis.z = 0;
             dis = dis.normalized * range;
         }
-        transform.position = dis + arrowPosition.position;   
+        transform.position = dis + arrowPosition.position;
     }
     void OnMouseUp()
     {
+        sprite.enabled = true; 
         if (!drag)
             return;
         drag = false;
