@@ -20,12 +20,11 @@ public class ArrowMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
         sprite = GetComponent<SpriteRenderer>();
-        sprite.enabled = false;
+        /*sprite.enabled = false;*/
     }
-    
     void OnMouseDrag()
     {
-        sprite.enabled = false;
+        /*sprite.enabled = false;*/
         if (!drag)
             return;
         var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -41,7 +40,7 @@ public class ArrowMovement : MonoBehaviour
     }
     void OnMouseUp()
     {
-        sprite.enabled = true; 
+        /*sprite.enabled = true; */
         if (!drag)
             return;
         drag = false;
