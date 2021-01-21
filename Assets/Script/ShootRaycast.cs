@@ -7,10 +7,12 @@ public class ShootRaycast : MonoBehaviour
     
     public Transform RaySpawn;
     public float rango;
+    public GameObject bullet;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        Rigidbody2D rb = bullet.AddComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -28,7 +30,8 @@ public class ShootRaycast : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(RaySpawn.position, RaySpawn.right);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(RaySpawn.position, RaySpawn.right * rango);
     }
+
 }

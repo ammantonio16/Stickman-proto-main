@@ -9,7 +9,11 @@ public class ArrowMovement : MonoBehaviour
     public Transform arrowPosition;
     Rigidbody2D rb;
 
-    
+    public GameObject arrow;
+    public Transform spawn;
+    GameObject arrowClon;
+
+
     bool drag = true;
     Vector3 dis;
     SpriteRenderer sprite;
@@ -46,5 +50,13 @@ public class ArrowMovement : MonoBehaviour
         drag = false;
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.velocity = -dis.normalized * speed * dis.magnitude * speed / range;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            Instantiate(arrow, spawn.position, spawn.rotation);
+            Destroy(this.gameObject, 2f);
+        }
     }
 }

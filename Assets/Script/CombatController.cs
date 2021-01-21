@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
-    public int[] playerNum;
+    /*public int[] playerNum;
     public int[] enemyNum;
 
 
 
-    bool turn = true;
+    bool turn = true;*/
     // Start is called before the first frame update
     void Start()
     {

@@ -5,24 +5,57 @@ using UnityEngine;
 public class ProvisionalMovement : MonoBehaviour
 {
     public float velocity = 2;
-    SpriteRenderer spinX;
+    public Joystick joystick;
+    public int numJump = 0;
+    public int totalJump = 1;
+    public bool jump;
+
+    
+
     void Start()
     {
-        GetComponent<SpriteRenderer>().flipX = true;
+        GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float x = Input.GetAxis("Horizontal");
-        transform.Translate(x * Time.deltaTime * velocity, 0f, 0f);
+        jump = (joystick.Vertical > .9f);
+        float x = joystick.Horizontal * velocity;
+        float y = joystick.Vertical * velocity;
+        transform.Translate(x * Time.deltaTime, 0f, 0f);
+        if (jump && numJump < totalJump)
+        {
+            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 5f),ForceMode2D.Impulse);
+            numJump++;
+        }
+
+
+
+
+
+
+
+
+
         if (x < 0)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<Transform>().localScale = new Vector3(-1f, 1f, 1f);
+
         }
-        if(x > 0)
+        if (x > 0)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<Transform>().localScale = new Vector3(1f, 1f, 1f);
+
+        }
+
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            numJump = 0;
         }
     }
 }
+
