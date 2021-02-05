@@ -12,24 +12,21 @@ public class ButtonChangeMode : MonoBehaviour
 
     public GameObject startPosition;
 
-    public CameraFollow desactivarCamera;
-    public CameraFollowBala cameraBala;
+
 
     public void Attack()
     {
         changeMode.enabled = true;
         fireButton.SetActive(false);
         moveButton.SetActive(true);
-        desactivarCamera.enabled = false;
-        cameraBala.enabled = true;
+
     }
     public void Move()
     {
         changeMode.enabled = false;
         fireButton.SetActive(true);
         moveButton.SetActive(false);
-        desactivarCamera.enabled = true;
-        cameraBala.enabled = false;
+
 
         startPosition.transform.rotation = Quaternion.identity;
         

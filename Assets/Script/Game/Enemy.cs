@@ -5,25 +5,22 @@ using System;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Disparo")]
     public Transform enemySpawnShoot;
     public GameObject bulletEnemy;
-
     public float tiempoEntreDisparo = 5f;
     public float tiempoActual;
-    public float cero = 0f;
-
     public bool reiniciarTiempo = true;
-
     public int numeroBalasEnemigo = 0;
     private int totalEnemigoDisparos = 1;
 
+    [Header("Inteligencia Artificial")]
     public Transform positionPlayer;
     public float velocidadEnemy;
     public float distanciaLimite;
 
-    public bool prueba = false;
-
-    public ContadordeTiempo cte;
+    [Header("Turno")]
+    public ContadordeTiempo ct;
     void Start()
     {
         reiniciarTiempo = false;
@@ -32,10 +29,6 @@ public class Enemy : MonoBehaviour
     }
     void Update()
     {
-        
-
-
-
         if (!Turn.turnos)
         {
             StartCoroutine("TurnoEntrePersonajes");
@@ -44,23 +37,18 @@ public class Enemy : MonoBehaviour
         {
             StopCoroutine("TurnoEntrePersonajes");
         }
-
-
-
-
-
-
-
     }
     public IEnumerator TurnoEntrePersonajes()
     {
         yield return new WaitForSeconds(3f);
-        cte.TiempoRestanteEnemy();
+        ct.TiempoRestanteEnemy();
         yield return new WaitForSeconds (5f);
         MovimientoPersonaje();
         yield return new WaitForSeconds(2f);
         TiempoEspera();
     }
+    //Disparo enemigo provisional
+    #region
     public void TiempoEspera()
     {
         numeroBalasEnemigo = 0;
@@ -82,6 +70,7 @@ public class Enemy : MonoBehaviour
 
         }
     }
+    #endregion
     //Movimiento del personaje
     #region
     public void MovimientoPersonaje()

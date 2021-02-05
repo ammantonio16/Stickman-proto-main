@@ -4,23 +4,14 @@ using UnityEngine;
 
 public class BulletEnemy : MonoBehaviour
 {
+    [Header("Características de la bala Enemy")]
     Rigidbody2D rb;
     public float speed;
-
     public float daño = 0;
-
     public int cantidad;
-
-    public ContadordeTiempo cte;
-    public ContadordeTiempo ct;
-
-    Enemy nb;
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-
     }
 
     void Update()
@@ -29,7 +20,7 @@ public class BulletEnemy : MonoBehaviour
 
     }
 
-
+    //Trigger que detecta las colisiones de la balaEnemy
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
@@ -37,10 +28,6 @@ public class BulletEnemy : MonoBehaviour
             collision.GetComponent<Life>().VidaBaja(10);
             Destroy(this.gameObject);
             Turn.turnos = true;
-            /*Destroy(gameObject);
-            Destroy(collision.gameObject);*/
-
-
         }
         if (collision.tag == "Ground")
         {
@@ -49,9 +36,7 @@ public class BulletEnemy : MonoBehaviour
         }
         if (collision.tag == "Player" || collision.tag == "Ground")
         {
-            cte.enabled = false;
-            ct.tiempoAcabarTurno = 20f;
-            ct.enabled = true;
+            ContadordeTiempo.tiempoAcabarTurno = 20f;
 
         }
     }

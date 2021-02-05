@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class ArrowMovement : MonoBehaviour
 {
+    [Header("Características disparo")]
     public float speed;
     public float range;
     public Transform arrowPosition;
     Rigidbody2D rb;
-
-    public GameObject arrow;
-    public Transform spawn;
-
-
     bool drag = true;
     Vector3 dis;
     SpriteRenderer sprite;
 
+    [Header("Spawn del bitmap")]
+    public GameObject arrow;
+    public Transform spawn;
+
+    [Header("Características hereditarias")]
     public GameObject objetoPadre;
     public GameObject objetoHijo;
 
-    
     void Start()
     { 
         rb = GetComponent<Rigidbody2D>();
@@ -28,6 +28,8 @@ public class ArrowMovement : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         /*sprite.enabled = false;*/
     }
+
+    //Detecta cuando el jugador arrastra su dedo por la pantalla
     void OnMouseDrag()
     {
         /*sprite.enabled = false;*/
@@ -44,6 +46,7 @@ public class ArrowMovement : MonoBehaviour
         }
         transform.position = dis + arrowPosition.position;
     }
+    //Detecta cuando el jugador suelta el dedo de la pantalla
     void OnMouseUp()
     {
         /*sprite.enabled = true; */
@@ -53,7 +56,8 @@ public class ArrowMovement : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.velocity = -dis.normalized * speed * dis.magnitude * speed / range;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    //Trigger que detecta con que colisiona el bitmap
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {

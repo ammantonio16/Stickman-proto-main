@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Características movimiento y salto")]
     public float velocity = 2;
     public Joystick joystick;
     public int numJump = 0;
     public int totalJump = 1;
     public bool jump;
 
+    [Header("Turno Player")]
     public ContadordeTiempo ct;
-
-    
-
     void Start()
     {
         GetComponent<Transform>();
@@ -29,34 +28,29 @@ public class PlayerController : MonoBehaviour
             float x = joystick.Horizontal * velocity;
             float y = joystick.Vertical * velocity;
             transform.Translate(x * Time.deltaTime, 0f, 0f);
+
             if (jump && numJump < totalJump)
             {
                 gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, 5f), ForceMode2D.Impulse);
                 numJump++;
             }
 
-
-
-
-
-
-
-
-
             if (x < 0)
             {
                 GetComponent<Transform>().localScale = new Vector3(-1f, 1f, 1f);
 
             }
+
             if (x > 0)
             {
                 GetComponent<Transform>().localScale = new Vector3(1f, 1f, 1f);
 
             }
         }
+
         if (!Turn.turnos)
         {
-            Debug.Log("esto ahora es falso y no puedo moverme");
+            //Debug.Log("esto ahora es falso y no puedo moverme");
         }
 
     }
@@ -67,5 +61,14 @@ public class PlayerController : MonoBehaviour
             numJump = 0;
         }
     }
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "bitmap")
+        {
+            Debug.Log("Hola");
+        }
+    }
+
+
 }
 
