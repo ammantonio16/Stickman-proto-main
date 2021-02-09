@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+
 
 public class Enemy : MonoBehaviour
 {
@@ -21,6 +21,10 @@ public class Enemy : MonoBehaviour
 
     [Header("Turno")]
     public ContadordeTiempo ct;
+
+    public BulletEnemy bal;
+
+    
     void Start()
     {
         reiniciarTiempo = false;
@@ -42,7 +46,7 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         ct.TiempoRestanteEnemy();
-        yield return new WaitForSeconds (5f);
+        yield return new WaitForSeconds (1f);
         MovimientoPersonaje();
         yield return new WaitForSeconds(2f);
         TiempoEspera();
@@ -59,8 +63,10 @@ public class Enemy : MonoBehaviour
             if (tiempoActual >= tiempoEntreDisparo && numeroBalasEnemigo <= totalEnemigoDisparos)
             {
                 Instantiate(bulletEnemy, enemySpawnShoot.position, enemySpawnShoot.rotation);
+                bal.rangobala = new Vector2(Random.Range(bal.rangoBala2.position.x, bal.rangoBala1.position.x), bal.rangoBala3.position.y);
                 reiniciarTiempo = false;
                 numeroBalasEnemigo++;
+                Debug.Log(bal.rangobala);
             }
         }
         if (!reiniciarTiempo)

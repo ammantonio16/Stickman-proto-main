@@ -10,6 +10,7 @@ public class WeaponController : MonoBehaviour
     public float rango;
     public GameObject bullet;
     public GameObject balaClon;
+    public float fuerzaLanzamiento;
     [SerializeField]
     private int numeroDisparos = 0;
     [SerializeField]
@@ -45,10 +46,11 @@ public class WeaponController : MonoBehaviour
 
     public void AtaqueBotton()
     {
-        balaClon = Instantiate(bullet, transform.position, transform.rotation);
+        balaClon = Instantiate(bullet, RaySpawn.position, RaySpawn.rotation);
+        balaClon.GetComponent<Rigidbody2D>().velocity =transform.right * fuerzaLanzamiento;
         Turn.seguirBala = true;
         numeroDisparos++;
         Turn.moverCamera = false;
-        RaycastHit2D hit = Physics2D.Raycast(RaySpawn.position, (mira.position - container.position).normalized, 1000f, ~(1 << 10));
+        //RaycastHit2D hit = Physics2D.Raycast(RaySpawn.position, (mira.position - container.position).normalized, 1000f, ~(1 << 10));
     }
 }

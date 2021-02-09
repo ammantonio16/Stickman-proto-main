@@ -9,15 +9,21 @@ public class BulletEnemy : MonoBehaviour
     public float speed;
     public float daño = 0;
     public int cantidad;
+
+    [Header("Dirección de la bala Enemy")]
+    public Transform rangoBala1;
+    public Transform rangoBala2;
+    public Transform rangoBala3;
+    public Vector2 rangobala;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
     }
 
     void Update()
     {
-        rb.velocity = transform.right * speed;
-
+        transform.position = Vector2.MoveTowards(transform.position, rangobala, speed * Time.deltaTime);
     }
 
     //Trigger que detecta las colisiones de la balaEnemy

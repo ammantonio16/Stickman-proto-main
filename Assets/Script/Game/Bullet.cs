@@ -14,12 +14,15 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        //rb.AddForce(transform.position * speed, ForceMode2D.Impulse);
+
     }
 
 
     void Update()
     {
-        rb.velocity = transform.right * speed;
+        float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
     //Trigger que detecta las colisiones de la balaPlayer
     #region

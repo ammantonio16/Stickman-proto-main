@@ -14,6 +14,7 @@ public class CameraFollow : MonoBehaviour
 
     [Header("Enemy")]
     public GameObject enemyFollow;
+
     void FixedUpdate ()
     {
         if (Turn.moverCamera)
@@ -28,14 +29,6 @@ public class CameraFollow : MonoBehaviour
         }
         if (Turn.turnos && !Turn.moverCamera)
         {
-
-            float posX = follow.transform.position.x;
-            float posY = follow.transform.position.y;
-
-            transform.position = new Vector3
-                (Mathf.Clamp(posX, minCam.x, maxCam.x),
-                 Mathf.Clamp(posY, minCam.y, maxCam.y),
-                 transform.position.z);
             if (clon.balaClon == null)
             {
                 float posXplayerbala = follow.transform.position.x;
@@ -66,9 +59,7 @@ public class CameraFollow : MonoBehaviour
                 (Mathf.Clamp(posX, minCam.x, maxCam.x),
                  Mathf.Clamp(posY, minCam.y, maxCam.y),
                  transform.position.z);
-            
         }
-        
     }
         
 }

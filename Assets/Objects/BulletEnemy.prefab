@@ -143,8 +143,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e104bc8d5a9a7b448a13fbff209156b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 9
+  speed: 39.66
   "da\xF1o": 0
   cantidad: 10
-  cte: {fileID: 3479902587367562287, guid: bd1f91844782a6c4185bbc27eaffad90, type: 3}
-  ct: {fileID: 7957069697205086804, guid: 2e33acae6646c9746ba1cb57af1be7a6, type: 3}
+  rangoBala1: {fileID: 3484132567940292791, guid: 45e43f7ea009ceb49920499fc7fc5f1b,
+    type: 3}
+  rangoBala2: {fileID: 375990501035539847, guid: 2c4cafce48751514182895e9c80cd3ae,
+    type: 3}
+  rangoBala3: {fileID: 4442671667257593374, guid: 9df02381678e03048b23c7be12511f59,
+    type: 3}
+  rangobala: {x: 0, y: 0}

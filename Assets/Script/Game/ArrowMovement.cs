@@ -55,16 +55,29 @@ public class ArrowMovement : MonoBehaviour
         drag = false;
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.velocity = -dis.normalized * speed * dis.magnitude * speed / range;
+        
     }
     //Trigger que detecta con que colisiona el bitmap
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
-            objetoHijo = Instantiate(arrow, spawn.position, spawn.rotation);
+            objetoHijo = Instantiate(arrow, transform.position, transform.rotation);
             objetoHijo.transform.parent = objetoPadre.transform;
             objetoHijo.transform.position = objetoPadre.transform.position;
+            //Destroy(this.gameObject);
+            //Turn.turnos = false;
+        }
+
+        if (collision.gameObject.tag == "Enemy"){
+            collision.GetComponent<Life>().VidaBaja(10);
             Destroy(this.gameObject);
+            Turn.turnos = false;
+        }
+
+        if (collision.tag == "Enemy" || collision.tag == "Ground")
+        {
+            ContadordeTiempo.tiempoAcabarTurno = 20f;
         }
     }
 }
