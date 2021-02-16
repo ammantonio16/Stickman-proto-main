@@ -10,23 +10,21 @@ public class WeaponController : MonoBehaviour
     public float rango;
     public GameObject bullet;
     public GameObject balaClon;
-    public float fuerzaLanzamiento;
+    public int numeroDisparos = 0;
     [SerializeField]
-    private int numeroDisparos = 0;
-    [SerializeField]
-    private int totalDisparos = 10;
+    private int totalDisparos = 1;
 
     [Header("Objetivo de disparo en la escena")]
     public Transform mira;
     public Transform container;
 
     void Update()
-    { 
-        
+    {
+
         mira.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
         if (numeroDisparos <= totalDisparos)
         {
-            if (Input.GetButtonDown("Fire1")) 
+            if (Input.GetButtonDown("Fire1"))
             {
                 AtaqueBotton();
             }
@@ -46,11 +44,13 @@ public class WeaponController : MonoBehaviour
 
     public void AtaqueBotton()
     {
-        balaClon = Instantiate(bullet, RaySpawn.position, RaySpawn.rotation);
-        balaClon.GetComponent<Rigidbody2D>().velocity =transform.right * fuerzaLanzamiento;
-        Turn.seguirBala = true;
-        numeroDisparos++;
-        Turn.moverCamera = false;
-        //RaycastHit2D hit = Physics2D.Raycast(RaySpawn.position, (mira.position - container.position).normalized, 1000f, ~(1 << 10));
+        if (numeroDisparos < totalDisparos)
+        {
+            balaClon = Instantiate(bullet, transform.position, transform.rotation);
+            Turn.seguirBala = true;
+            numeroDisparos++;
+            Turn.moverCamera = false;
+        }
+        RaycastHit2D hit = Physics2D.Raycast(RaySpawn.position, (mira.position - container.position).normalized, 1000f, ~(1 << 10));
     }
 }

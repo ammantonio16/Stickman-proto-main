@@ -12,4 +12,6 @@ public class Turn : MonoBehaviour
     public static bool seguirBala = false;
     public static bool turnos = true;
     public static bool moverCamera = true;
+    public static bool direccionbala = true;
+    public static bool direccionbalaEnemy = true;
 }

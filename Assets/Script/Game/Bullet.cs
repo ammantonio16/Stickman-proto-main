@@ -14,15 +14,21 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //rb.AddForce(transform.position * speed, ForceMode2D.Impulse);
+        if (Turn.direccionbala)
+        {
+            rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
+        }
+        if (!Turn.direccionbala)
+        {
+            rb.AddForce(-transform.right * speed, ForceMode2D.Impulse);
+        }
 
     }
 
 
     void Update()
     {
-        float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        
     }
     //Trigger que detecta las colisiones de la balaPlayer
     #region
@@ -33,16 +39,33 @@ public class Bullet : MonoBehaviour
             collision.GetComponent<Life>().VidaBaja(10);
             Destroy(this.gameObject);
             Turn.turnos = false;
-        }   
-        if (collision.tag == "Ground")
+        }
+        /*if (collision.tag == "Ground")
+        {
+            Destroy(this.gameObject);
+            Turn.turnos = false;
+        }*/
+        /*if(collision.tag == "Enemy" || collision.tag == "Ground")
+        {
+            ContadordeTiempo.tiempoAcabarTurno = 20f;
+        }*/
+    }
+    #endregion
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
         {
             Destroy(this.gameObject);
             Turn.turnos = false;
         }
-        if(collision.tag == "Enemy" || collision.tag == "Ground")
+        if (collision.gameObject.tag == "Ground")
+        {
+            Destroy(this.gameObject);
+            Turn.turnos = false;
+        }
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Ground")
         {
             ContadordeTiempo.tiempoAcabarTurno = 20f;
         }
     }
-    #endregion
 }

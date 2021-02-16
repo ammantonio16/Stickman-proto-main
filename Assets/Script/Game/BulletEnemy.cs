@@ -18,7 +18,14 @@ public class BulletEnemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
+        if (Turn.direccionbalaEnemy)
+        {
+            rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
+        }
+        if (!Turn.direccionbalaEnemy)
+        {
+            rb.AddForce(-transform.right * speed, ForceMode2D.Impulse);
+        }
     }
 
     void Update()

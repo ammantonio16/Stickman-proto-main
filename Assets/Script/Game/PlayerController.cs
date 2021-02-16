@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Turn.turnos)
         {
+
             ct.TiempoRestante();
             jump = (joystick.Vertical > .9f);
             float x = joystick.Horizontal * velocity;
@@ -38,13 +39,13 @@ public class PlayerController : MonoBehaviour
             if (x < 0)
             {
                 GetComponent<Transform>().localScale = new Vector3(-1f, 1f, 1f);
-
+                Turn.direccionbala = false;
             }
 
             if (x > 0)
             {
                 GetComponent<Transform>().localScale = new Vector3(1f, 1f, 1f);
-
+                Turn.direccionbala = true;
             }
         }
 
@@ -59,13 +60,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             numJump = 0;
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D coll)
-    {
-        if (coll.gameObject.tag == "bitmap")
-        {
-            Debug.Log("Hola");
         }
     }
 

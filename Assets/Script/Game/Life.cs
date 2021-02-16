@@ -17,7 +17,12 @@ public class Life : MonoBehaviour
     void Update()
     {
         lifeBar.fillAmount = actualLife / maxLife;
-        
+
+        if (lifeBar.fillAmount == 0)
+        {
+            Destroy(this.gameObject);
+        }
+
     }
 
     

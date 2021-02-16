@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e104bc8d5a9a7b448a13fbff209156b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 39.66
+  speed: 20
   "da\xF1o": 0
   cantidad: 10
   rangoBala1: {fileID: 3484132567940292791, guid: 45e43f7ea009ceb49920499fc7fc5f1b,
@@ -152,4 +152,4 @@ MonoBehaviour:
     type: 3}
   rangoBala3: {fileID: 4442671667257593374, guid: 9df02381678e03048b23c7be12511f59,
     type: 3}
-  rangobala: {x: 0, y: 0}
+  rangobala: {x: -19.972183, y: -33.30085}

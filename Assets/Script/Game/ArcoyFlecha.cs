@@ -40,7 +40,6 @@ public class ArcoyFlecha : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             dragStartPosMouse = Input.mousePosition;
-            DragStartMouse();
         }
     }
     void DragStart() {
@@ -78,17 +77,25 @@ public class ArcoyFlecha : MonoBehaviour
         draggingPosMouse.z = 0;
         lr.positionCount = 2;
         lr.SetPosition(1, draggingPosMouse);
+
     }
     void DragEndMouse()
     {
+        rb.bodyType = RigidbodyType2D.Dynamic;
         Vector3 dragEndMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         dragEndMouse.z = 0;
 
         Vector3 force = dragStartPosMouse - dragEndMouse;
-        Vector3 clampedForce = Vector3.ClampMagnitude(force, maxDrag) * power;
+        Vector3 clampedForceMouse = Vector3.ClampMagnitude(force, maxDrag) * power;
 
-        rb.AddForce(clampedForce, ForceMode2D.Impulse);
-        
+        rb.AddForce(clampedForceMouse, ForceMode2D.Impulse);
+
+
+    }
+    private void OnMouseDown()
+    {
+        DragStartMouse();
+
     }
     private void OnMouseDrag()
     {
