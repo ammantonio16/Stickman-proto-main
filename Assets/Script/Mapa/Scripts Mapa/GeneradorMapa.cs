@@ -6,8 +6,10 @@ using UnityEngine;
 public class GeneradorMapa : MonoBehaviour
 {
     public Tile tile;
-    public RuleTile regla;
+    
     public Tilemap tilemap;
+
+    public RuleTile regla;
 
     public int mapWidth;
     public int mapHeight;
@@ -31,6 +33,7 @@ public class GeneradorMapa : MonoBehaviour
             {
                 if(this.mapData[i,j] == 1)
                 {
+                    //this.tilemap.SetTile(new Vector3Int(i,j,0),this.tile);
                     this.tilemap.SetTile(new Vector3Int(i,j,0),this.regla);
                 }
             }

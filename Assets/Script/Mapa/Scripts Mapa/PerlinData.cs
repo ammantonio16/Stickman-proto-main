@@ -11,7 +11,6 @@ public class PerlinData : MonoBehaviour
     public int[,] GenerateData(int w, int h)
     {
         scale_i = Random.Range(4f, 25f);
-        scale_j = Random.Range(4f, 25f);
         int[,] mapData = new int[w, h];
         for (int i = 0; i < w; i++)
         {
@@ -21,7 +20,7 @@ public class PerlinData : MonoBehaviour
 
                 float value = Mathf.PerlinNoise(
                     (float)i / scale_i,
-                    (float)j / scale_j
+                    (float)j / scale_i
                     ) - heighPercent;
 
                 mapData[i, j] = value < this.fillPercent ? 1 : 0;

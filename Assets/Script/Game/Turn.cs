@@ -14,4 +14,5 @@ public class Turn : MonoBehaviour
     public static bool moverCamera = true;
     public static bool direccionbala = true;
     public static bool direccionbalaEnemy = true;
+    public static bool detectorMapa;
 }

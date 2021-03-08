@@ -10,12 +10,17 @@ public class PlayerController : MonoBehaviour
     public int numJump = 0;
     public int totalJump = 1;
     public bool jump;
+    Rigidbody2D rb;
 
     [Header("Turno Player")]
     public ContadordeTiempo ct;
+
+
+
     void Start()
     {
         GetComponent<Transform>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -23,7 +28,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Turn.turnos)
         {
-
+            if (Turn.detectorMapa)
+            {
+                Turn.detectorMapa = false;
+            }
             ct.TiempoRestante();
             jump = (joystick.Vertical > .9f);
             float x = joystick.Horizontal * velocity;
@@ -48,12 +56,6 @@ public class PlayerController : MonoBehaviour
                 Turn.direccionbala = true;
             }
         }
-
-        if (!Turn.turnos)
-        {
-            //Debug.Log("esto ahora es falso y no puedo moverme");
-        }
-
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -61,8 +63,17 @@ public class PlayerController : MonoBehaviour
         {
             numJump = 0;
         }
+        if (collision.gameObject.tag == "Water")
+        {
+            Destroy(this.gameObject);
+        }
     }
-
-
+    public IEnumerator Detectar2(float tiempo)
+    {
+        yield return new WaitForSeconds(1f);
+        AstarPath.active.Scan();
+    }
 }
+
+
 

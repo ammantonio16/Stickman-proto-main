@@ -34,23 +34,41 @@ public class BulletEnemy : MonoBehaviour
     }
 
     //Trigger que detecta las colisiones de la balaEnemy
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             collision.GetComponent<Life>().VidaBaja(10);
             Destroy(this.gameObject);
             Turn.turnos = true;
         }
-        if (collision.tag == "Ground")
+        if (collision.gameObject.tag == "Ground")
+        {
+            //Destroy(this.gameObject);
+            Turn.turnos = true;
+        }
+        if (collision.gameObject.tag == "Player" || collision.tag == "Ground")
+        {
+            ContadordeTiempo.tiempoAcabarTurno = 20f;
+
+        }
+    }*/
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
         {
             Destroy(this.gameObject);
             Turn.turnos = true;
         }
-        if (collision.tag == "Player" || collision.tag == "Ground")
+        if (collision.gameObject.tag == "Ground")
+        {
+            //Destroy(this.gameObject);
+            Turn.turnos = true;
+        }
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Ground")
         {
             ContadordeTiempo.tiempoAcabarTurno = 20f;
-
         }
     }
 }

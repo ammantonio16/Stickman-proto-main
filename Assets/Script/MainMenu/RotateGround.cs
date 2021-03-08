@@ -10,12 +10,12 @@ public class RotateGround : MonoBehaviour
 
     void Awake()
     {
-        Ground.transform.position = new Vector3(0.0f, -4.0f, 0.0f);
-        Ground.transform.Rotate(0.0f, 5.0f, 0.0f, Space.World);
+        //Ground.transform.position = new Vector3(0.0f, -4.0f, 0.0f);
+        Ground.transform.Rotate(0.0f, 5.0f * Time.deltaTime, 0.0f, Space.World);
     }
 
     void Update()
     {
-        Ground.transform.Rotate(xAngle, yAngle, zAngle, Space.Self);
+        Ground.transform.Rotate(xAngle, yAngle, zAngle, Space.Self );
     }
 }

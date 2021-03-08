@@ -5,10 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - Enemy
-  - Enemy
-  - Bullet
-  - bitmap
   layers:
   - Default
   - TransparentFX
@@ -18,19 +14,19 @@ TagManager:
   - UI
   - 
   - 
-  - background
+  - PostProcessing
+  - Ground
+  - DynamicProps
+  - StaicProps
+  - DamagedProps
+  - Ally
   - Enemy
+  - Dead
+  - Loot
+  - DeadlyCollider
+  - OnlyGroundTrigger
+  - Platform
   - Player
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   - 
   - 
   - 
@@ -45,7 +41,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Background
-    uniqueID: 2561472641
     locked: 0

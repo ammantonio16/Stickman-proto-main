@@ -41,9 +41,6 @@ public class Enemy : MonoBehaviour
     {
         if (!Turn.turnos)
         {
-            objetoHijo = Instantiate(fc.arrow, fc.spawn.position, fc.spawn.rotation);
-            objetoHijo.transform.parent = objetoPadre.transform;
-            objetoHijo.transform.position = objetoPadre.transform.position;
             mb.numeroDisparos = 0;
             StartCoroutine("TurnoEntrePersonajes");
         }
@@ -80,7 +77,7 @@ public class Enemy : MonoBehaviour
     #region
     public void MovimientoPersonaje()
     {
-        if (Vector2.Distance(transform.position, positionPlayer.position) > distanciaLimite)
+        if (Vector2.Distance(transform.position, positionPlayer.position) >  distanciaLimite)
         {
             transform.position = Vector2.MoveTowards(transform.position, positionPlayer.position, velocidadEnemy * Time.deltaTime);
         }

@@ -83,7 +83,7 @@ public class ArrowMovement : MonoBehaviour
 
     }
     //Trigger que detecta con que colisiona el bitmap
-    /*private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
@@ -107,7 +107,7 @@ public class ArrowMovement : MonoBehaviour
         {
             ContadordeTiempo.tiempoAcabarTurno = 20f;
         }
-    }*/
+    }
 
     private Vector2 calculatePosition(float elapsedTime)
     {
@@ -115,7 +115,7 @@ public class ArrowMovement : MonoBehaviour
             new Vector2(-dis.x * speed, -dis.y * speed) * elapsedTime +
             0.5f * Physics2D.gravity * elapsedTime * elapsedTime;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
@@ -131,7 +131,7 @@ public class ArrowMovement : MonoBehaviour
             objetoHijo = Instantiate(arrow, spawn.position, spawn.rotation);
             objetoHijo.transform.parent = objetoPadre.transform;
             objetoHijo.transform.position = objetoPadre.transform.position;
-            //collision.GetComponent<Life>().VidaBaja(10);
+            collision.GetComponent<Life>().VidaBaja(10);
             Destroy(this.gameObject);
             Turn.turnos = false;
         }
@@ -140,7 +140,7 @@ public class ArrowMovement : MonoBehaviour
         {
             ContadordeTiempo.tiempoAcabarTurno = 20f;
         }
-    }
+    }*/
 
 }
 
