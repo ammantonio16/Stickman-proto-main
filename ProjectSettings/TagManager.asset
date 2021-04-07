@@ -5,6 +5,18 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - BalaPlayer
+  - Ascensor menu
+  - Cuerda
+  - Lancha
+  - PowerUpEmpuje
+  - Enemy
+  - PowerUpExplosion
+  - CajaPuerta
+  - CajasFuturo
+  - Cinta
+  - Electricidad
+  - Explosion
   layers:
   - Default
   - TransparentFX
@@ -27,8 +39,8 @@ TagManager:
   - OnlyGroundTrigger
   - Platform
   - Player
-  - 
-  - 
+  - Caja
+  - Cinta
   - 
   - 
   - 

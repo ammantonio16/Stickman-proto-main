@@ -1,28 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class Life : MonoBehaviour
 {
-    public Image lifeBar;
+    //public Image lifeBar;
     public float actualLife;
     public float maxLife;
 
-    public Bullet dañoBala;
+    //public Bullet dañoBala;
 
 
 
     // Update is called once per frame
     void Update()
     {
-        lifeBar.fillAmount = actualLife / maxLife;
-
-        if (lifeBar.fillAmount == 0)
-        {
-            Destroy(this.gameObject);
-        }
-
+        VidaBaja(maxLife);
     }
 
     
@@ -30,6 +24,10 @@ public class Life : MonoBehaviour
     {
         
         actualLife = actualLife - daño;
+        if (actualLife <= 0)
+        {
+            Debug.Log("Estoy Muerto");
+        }
 
     }
 }

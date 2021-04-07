@@ -8,8 +8,9 @@ public class Bala : MonoBehaviour
     [Header("Características de la bala Player")]
     Rigidbody2D rb;
     public float speed;
-    public float daño = 0;
-    public int cantidad;
+    public float daño = 10;
+    GameObject cuerda;
+    
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class Bala : MonoBehaviour
         {
             rb.AddForce(-transform.right * speed, ForceMode2D.Impulse);
         }
+        cuerda = GameObject.FindGameObjectWithTag("Cuerda");
 
     }
 
@@ -56,19 +58,25 @@ public class Bala : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             Destroy(this.gameObject);
-            Turn.turnos = false;
-            Turn.detectorMapa = false;
+            GameObject enemigoLife = GameObject.FindGameObjectWithTag("Enemy");
+            enemigoLife.GetComponent<Life>().VidaBaja(daño);
+
+        }
+        if (collision.gameObject.tag == "Cuerda")
+        {
+            Destroy(cuerda);
         }
         if (collision.gameObject.tag == "Ground")
         {
-            //Destroy(this.gameObject);
-            Turn.turnos = false;
-            Turn.detectorMapa = false;
-            
+            Destroy(this.gameObject);
         }
-        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Ground")
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Cuerda")
         {
-            ContadordeTiempo.tiempoAcabarTurno = 20f;
+            Destroy(this.gameObject);
+            Destroy(cuerda);
         }
     }
 }

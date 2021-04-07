@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Title.unity
+    path: Assets/Scenes/Menu/Title.unity
     guid: f7c1b003c029ff54ab364d2507d2a599
   - enabled: 1
-    path: Assets/Scenes/Survival.unity
+    path: Assets/Scenes/Survival/Survival.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/CampaignScenes/Campaign1.unity
@@ -17,9 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CampaignScenes/Campaign2.unity
     guid: 5d202147b10d8cc4e875a2b8c7ec4380
-  - enabled: 1
-    path: Assets/Scenes/CampaignScenes/Campaign3.unity
-    guid: e56f024c63148ed4094c7b340d248dd6
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/CampaignScenes/Campaign4.unity
     guid: c4c2f94ea2b16e9408134d29ed95bf5e
@@ -36,15 +36,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CampaignScenes/Campaign8.unity
     guid: 3aa84e13f62ccc3448be3871fd9e410f
   - enabled: 1
-    path: Assets/2DPlatformer/Scenes/Levels/Jungle_1_0.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Menu/Hub.unity
+    guid: 89cfba48798279e49906125aae097e55
   - enabled: 1
-    path: Assets/2DPlatformer/Scenes/Levels/SpaceWars_1_0.unity
-    guid: deb06521fc5621b40b87d19f9952fd66
-  - enabled: 1
-    path: Assets/2DPlatformer/Scenes/MainWorldScene.unity
-    guid: 437f01eac8c4c86469e374441e4a4080
-  - enabled: 1
-    path: Assets/2DPlatformer/Scenes/MainMenuScene.unity
-    guid: 57185a2dae9f2f04baf5629d7fd3a173
+    path: Assets/Scenes/Menu/F00.unity
+    guid: dd6f9365cd5e74a47bdd6e289d3a1a58
   m_configObjects: {}

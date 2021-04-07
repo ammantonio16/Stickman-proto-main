@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ContadordeTiempo : MonoBehaviour
 {
     [SerializeField]
-    public static float tiempoAcabarTurno = 40000f;
+    public static float tiempoAcabarTurno = 20f;
     public Text reloj;
     public void TiempoRestante()
     {
@@ -16,6 +16,8 @@ public class ContadordeTiempo : MonoBehaviour
         {
             Turn.turnos = false;
             tiempoAcabarTurno = 20f;
+            JugadorController.derecha = false;
+            JugadorController.izquierda = false;
         }
     }
     public void TiempoRestanteEnemy()
