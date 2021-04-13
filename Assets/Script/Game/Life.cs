@@ -9,17 +9,15 @@ public class Life : MonoBehaviour
     public float actualLife;
     public float maxLife;
 
-    //public Bullet dañoBala;
-
-
-
-    // Update is called once per frame
+    private void Start()
+    {
+       
+    }
     void Update()
     {
         VidaBaja(maxLife);
     }
 
-    
     public void VidaBaja (float daño)
     {
         
@@ -27,6 +25,7 @@ public class Life : MonoBehaviour
         if (actualLife <= 0)
         {
             Debug.Log("Estoy Muerto");
+            //Destroy(this.gameObject);
         }
 
     }

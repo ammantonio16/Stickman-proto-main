@@ -17,6 +17,7 @@ TagManager:
   - Cinta
   - Electricidad
   - Explosion
+  - ArmaRedonda
   layers:
   - Default
   - TransparentFX

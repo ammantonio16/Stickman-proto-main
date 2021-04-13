@@ -2290,6 +2290,11 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3016297832840395444, guid: 1778fe9ffe4b0f345aa8bb3a454740c1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3016297832840395445, guid: 1778fe9ffe4b0f345aa8bb3a454740c1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13207,7 +13212,7 @@ GameObject:
   - component: {fileID: 957297018}
   - component: {fileID: 957297017}
   m_Layer: 0
-  m_Name: 8695
+  m_Name: Danger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

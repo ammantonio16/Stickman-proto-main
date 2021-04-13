@@ -7436,6 +7436,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8035879864876172755, guid: 3e2d655a1bfefd842a4d30d176d21b86,
         type: 3}
+    - target: {fileID: 2070882942613051140, guid: 77069d89e20d16141a739552e552c469,
+        type: 3}
+      propertyPath: balaVerde
+      value: 
+      objectReference: {fileID: 6195502449698799724, guid: cca45dd7036ed5a49b5e512d4412e461,
+        type: 3}
     - target: {fileID: 2070882942613051141, guid: 77069d89e20d16141a739552e552c469,
         type: 3}
       propertyPath: m_Name
