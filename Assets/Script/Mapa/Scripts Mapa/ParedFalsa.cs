@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ParedFalsa : MonoBehaviour
 {
-    public SpriteRenderer trasparencia;
+    public SpriteRenderer[] trasparencia;
+    public float r, g, b, a;
     void Start()
     {
         
@@ -19,7 +20,8 @@ public class ParedFalsa : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-             trasparencia.color = new Color(0f, 0f, 0f, 0f);
+             trasparencia[0].color = new Color(r, g, b, a);
+             trasparencia[1].color = new Color(r, g, b, a);
         }
     }
 }

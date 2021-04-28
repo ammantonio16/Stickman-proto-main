@@ -18,6 +18,14 @@ TagManager:
   - Electricidad
   - Explosion
   - ArmaRedonda
+  - MarcaGanar
+  - Agua
+  - Rama
+  - Water
+  - Background
+  - bitmap
+  - Antorcha
+  - Botones
   layers:
   - Default
   - TransparentFX
@@ -42,8 +50,8 @@ TagManager:
   - Player
   - Caja
   - Cinta
-  - 
-  - 
+  - BalaPlayer
+  - BalaEnemy
   - 
   - 
   - 

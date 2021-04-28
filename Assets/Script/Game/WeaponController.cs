@@ -14,6 +14,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField]
     public int totalDisparos;
     public float cooldown;
+    public Collider2D[] ignore;
 
     [Header("Objetivo de disparo en la escena")]
     public Transform mira;
@@ -24,10 +25,18 @@ public class WeaponController : MonoBehaviour
 
         mira.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
 
-            if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
+        {
+            if(ignore != null)
             {
-            AtaqueBotton(); 
+                foreach (Collider2D c in ignore)
+                    {
+                        if (c.bounds.Contains(mira.position))
+                            return;
+                    }
             }
+         AtaqueBotton(); 
+        }
 
     }
 

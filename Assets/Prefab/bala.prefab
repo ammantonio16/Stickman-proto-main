@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6203160373719740518}
   - component: {fileID: 3286877203039802563}
   - component: {fileID: 8229217042659039065}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: bala
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e104bc8d5a9a7b448a13fbff209156b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 2
   "da\xF1o": 25
   cantidad: 0
 --- !u!58 &8229217042659039065
@@ -135,4 +135,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.73999995
+  m_Radius: 0.47

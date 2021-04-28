@@ -17,7 +17,8 @@ public class JugadorController : MonoBehaviour
     Transform escala;
     public bool colisioncajasfuturas;
     public bool cinto;
-    //public Animator anim;
+    public Animator anim;
+    bool Walk;
 
 
     public WeaponController balaCambiar;
@@ -25,6 +26,8 @@ public class JugadorController : MonoBehaviour
     public PowerUpBala balaNegra;
     public bool comprobar;
     public GameObject balaOriginal;
+    public GameObject antorcha;
+    public GameObject luz1;
     //public ContadordeTiempo ct;
     void Start()
     {
@@ -42,25 +45,25 @@ public class JugadorController : MonoBehaviour
             //ct.TiempoRestante();
             Movimiento();
             Power(balaOriginal);
-            if (Input.GetKeyDown(KeyCode.A)) 
+            if (Input.GetKey(KeyCode.D)) 
             {
                 derecha = true;
-                //anim.SetBool("Walk", true);
+                anim.SetBool("Walk", true);
             }
-            if (Input.GetKeyDown(KeyCode.D)) 
+            if (Input.GetKey(KeyCode.A)) 
             {
                 izquierda = true;
-                //anim.SetBool("Walk", true);
-            }
-            if (Input.GetKeyUp(KeyCode.A)) 
-            {
-                derecha = false;
-                //anim.SetBool("Walk", false);
+                anim.SetBool("Walk", true);
             }
             if (Input.GetKeyUp(KeyCode.D)) 
             {
+                derecha = false;
+                anim.SetBool("Walk", false);
+            }
+            if (Input.GetKeyUp(KeyCode.A)) 
+            {
                 izquierda = false;
-                //anim.SetBool("Walk", false);
+                anim.SetBool("Walk", false);
             }
         }
     }
@@ -68,35 +71,39 @@ public class JugadorController : MonoBehaviour
     public void IzquierdaBoton()
     {
         izquierda = true;
+        anim.SetBool("Walk", true);
     }
     public void DerechaBoton()
     {
         derecha = true;
+        anim.SetBool("Walk", true);
     }
     public void IzquierdaBotonUp()
     {
         izquierda = false;
+        anim.SetBool("Walk", false);
     }
     public void DerechaBotonUp()
     {
         derecha = false;
+        anim.SetBool("Walk", false);
     }
     private void FixedUpdate()
     {
         int bitmask = (1 << 9);
         RaycastHit2D IsGround;
-        IsGround = Physics2D.Raycast(piernas.bounds.center, -Vector2.up, 0.45f, bitmask);
-        Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.45f), Color.red);
+        IsGround = Physics2D.Raycast(piernas.bounds.center, -Vector2.up, 0.5f, bitmask);
+        Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.5f), Color.red);
         int cinta = (1 << 22);
         RaycastHit2D IsCinta;
         IsCinta = Physics2D.Raycast(piernas.bounds.center, -Vector2.up, 0.45f, cinta);
-        Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.45f), Color.red);
+        Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.5f), Color.red);
         if (IsGround)
         {
             Salto();
             checkSalto = true;
             rb.velocity = new Vector2(movimientoHorizintal, rb.velocity.y);
-            Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.45f), Color.green);
+            Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.5f), Color.green);
         }
         if (!IsGround)
         {
@@ -176,6 +183,12 @@ public class JugadorController : MonoBehaviour
                 balaCambiar.bullet = balaNegra.balaNegra;
                 comprobar = true;
             }
+        }
+        if (collision.gameObject.tag == "Antorcha")
+        {
+            antorcha.SetActive(enabled);
+            Destroy(collision.gameObject);
+            luz1.SetActive(!enabled);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)

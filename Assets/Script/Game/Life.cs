@@ -25,7 +25,7 @@ public class Life : MonoBehaviour
         if (actualLife <= 0)
         {
             Debug.Log("Estoy Muerto");
-            //Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
 
     }

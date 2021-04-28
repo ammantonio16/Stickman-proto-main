@@ -2744,6 +2744,8 @@ MonoBehaviour:
   balaClon: {fileID: 0}
   numeroDisparos: 0
   totalDisparos: 1
+  cooldown: 0
+  ignore: []
   mira: {fileID: 0}
   brazo: {fileID: 0}
 --- !u!1 &839402406
@@ -6300,8 +6302,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809474400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -99.58, y: 57.34, z: 0}
-  m_LocalScale: {x: 2.1905289, y: 3.024508, z: 1}
+  m_LocalPosition: {x: 0.83, y: -10.4, z: 0}
+  m_LocalScale: {x: 6.7866616, y: 6.7064223, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11

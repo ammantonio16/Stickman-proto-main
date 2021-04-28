@@ -35,14 +35,20 @@ public class Enemigo : MonoBehaviour
     public Rigidbody2D cuerpoBala;
     public float fuerzaBala;
     public float contador;
+    public float tiempoEntreDisparos;
     public int municion;
 
     [Header("Turnos")]
     public ContadordeTiempo cte;
+
+    Transform miScale;
+    bool arrastradoPorCascada;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        miScale = GetComponent<Transform>();
     }
+
 
 
     void FixedUpdate()
@@ -175,10 +181,10 @@ public class Enemigo : MonoBehaviour
         mano.transform.rotation = Quaternion.Euler(0, 0, 90 + AngleDeg);
         Debug.DrawRay(spawnBala.position, (target.transform.position - mano.transform.position), Color.blue);
         contador += Time.deltaTime;
-        if (contador >= 2)
+        if (contador >= tiempoEntreDisparos)
         {
             GameObject balaEnemigoclon = Instantiate(balaEnemigo, spawnBala.position, balaEnemigo.transform.rotation);
-            fuerzaBala = Random.Range(10, 40);
+            //fuerzaBala = Random.Range(10, 40);
 
             if (escalaEnemigo)
             {
@@ -205,6 +211,18 @@ public class Enemigo : MonoBehaviour
             escalaEnemigo = false;
         }
 
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Agua")
+        {
+            miScale.localScale = miScale.localScale + new Vector3(0.01f, 0.01f);
+            miScale.Translate(0f, 0.1f, 0f);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
     }
 }
 

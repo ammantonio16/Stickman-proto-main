@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ParedFalsaSalida : MonoBehaviour
 {
-    public SpriteRenderer paredFalsa;
+    public SpriteRenderer[] paredFalsa;
     public Color grisPared;
+ 
     void Start()
     {
 
@@ -20,7 +21,8 @@ public class ParedFalsaSalida : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            paredFalsa.color = grisPared;
+            paredFalsa[0].color = grisPared;
+            paredFalsa[1].color = grisPared;
         }
     }
 }
