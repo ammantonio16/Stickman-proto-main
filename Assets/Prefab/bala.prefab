@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8229217042659039065}
   m_Layer: 24
   m_Name: bala
-  m_TagString: Untagged
+  m_TagString: BulletEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,7 +103,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &3286877203039802563
 MonoBehaviour:
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  "da\xF1o": 25
+  "da\xF1o": 0.25
   cantidad: 0
 --- !u!58 &8229217042659039065
 CircleCollider2D:

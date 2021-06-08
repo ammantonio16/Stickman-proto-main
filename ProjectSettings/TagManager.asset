@@ -26,6 +26,15 @@ TagManager:
   - bitmap
   - Antorcha
   - Botones
+  - Gota
+  - BulletEnemy
+  - Botones 2
+  - PosicionBarraTareas
+  - Botones 3
+  - Botones 4
+  - Transixion
+  - Pantalla
+  - Boton Cerrar
   layers:
   - Default
   - TransparentFX
@@ -60,6 +69,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: "Pesta\xF1as"
+    uniqueID: 3188289863
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

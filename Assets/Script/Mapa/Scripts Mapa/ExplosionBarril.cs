@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ExplosionBarril : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     public GameObject explosionPrefab;
 
     public float rangeExpolosionDamage;
@@ -18,7 +18,7 @@ public class ExplosionBarril : MonoBehaviour
     {
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
@@ -36,18 +36,19 @@ public class ExplosionBarril : MonoBehaviour
             {
                 Collider2D[] dañoExplosionRango;
                 dañoExplosionRango = Physics2D.OverlapCircleAll(barrilCollider.bounds.center, rangeExpolosionDamage);
+                 
                 foreach(Collider2D obj in dañoExplosionRango)
                 {
                     Debug.Log("!");
                     if (obj.gameObject.CompareTag("Enemy"))
                     {
                         Debug.Log("Macaco");
-                        obj.gameObject.GetComponentInParent<Life>().VidaBaja(daño);
+                        obj.gameObject.GetComponentInParent<Life2Enemy>().VidaBaja(daño);
                     }
                     if (obj.gameObject.CompareTag("Enemy"))
                     {
                         Debug.Log("Macaco");
-                        obj.gameObject.GetComponentInParent<Life>().VidaBaja(daño);
+                        obj.gameObject.GetComponentInParent<Life2Enemy>().VidaBaja(daño);
                     }
                 }
             }
@@ -66,18 +67,19 @@ public class ExplosionBarril : MonoBehaviour
             {
                 Collider2D[] dañoExplosionRango;
                 dañoExplosionRango = Physics2D.OverlapCircleAll(barrilCollider.bounds.center, rangeExpolosionDamage);
+                
                 foreach (Collider2D obj in dañoExplosionRango)
                 {
                     Debug.Log("!");
                     if (obj.gameObject.CompareTag("Enemy"))
                     {
                         Debug.Log("Macaco");
-                        obj.gameObject.GetComponentInParent<Life>().VidaBaja(daño);
+                        obj.gameObject.GetComponentInParent<Life2Enemy>().VidaBaja(daño);
                     }
                     if (obj.gameObject.CompareTag("Player"))
                     {
                         Debug.Log("Macaco");
-                        obj.gameObject.GetComponentInParent<Life>().VidaBaja(daño);
+                        obj.gameObject.GetComponentInParent<Life2Enemy>().VidaBaja(daño);
                     }
                 }
             }

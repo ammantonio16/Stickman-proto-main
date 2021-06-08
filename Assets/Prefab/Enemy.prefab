@@ -541,10 +541,11 @@ GameObject:
   - component: {fileID: 3194636005858379506}
   - component: {fileID: 3194636005858379507}
   - component: {fileID: 3194636005858379404}
-  - component: {fileID: 5523127212168021956}
+  - component: {fileID: 8999590777901206331}
+  - component: {fileID: 7643519807695154559}
   m_Layer: 14
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -604,13 +605,14 @@ MonoBehaviour:
   checksalto: {fileID: 3194636005564722300}
   checkpared: {fileID: 3194636005664963039}
   enemigo: {fileID: 3194636005858379506}
-  boxCuerpoPlayer: {fileID: 0}
+  boxCuerpoPlayer: {fileID: 3194636004722426678}
   fuerzaSalto: 5
   pruebaVelocidad: 1.5
   escalaEnemigo: 0
+  anim: {fileID: 0}
   boxCuerpo: {fileID: 3194636004722426678}
   deteccion: 3
-  radioDisparo: 4.28
+  radioDisparo: 4.82
   radioPlayer: 2
   mano: {fileID: 3194636004788533625}
   target: {fileID: 0}
@@ -621,9 +623,29 @@ MonoBehaviour:
     type: 3}
   fuerzaBala: 21
   contador: 0
+  tiempoEntreDisparos: 1
   municion: 0
   cte: {fileID: 0}
---- !u!114 &5523127212168021956
+--- !u!95 &8999590777901206331
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3194636005858379405}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c7731dde1ad8824c85b11c5dc177cdb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7643519807695154559
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -632,7 +654,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3194636005858379405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e540e7a2528bbf49a49e36d983ed667, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d21fcc0cf1a3b64fb3c647f99f95216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   actualLife: 100

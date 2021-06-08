@@ -6,25 +6,32 @@ public class CameraFollow : MonoBehaviour
 {
     [Header("Player")]
     public GameObject follow;
-    public WeaponController clon;
+    //public WeaponController clon;
 
     [Header("Rango Camara")]
-    public Vector2 minCam;
-    public Vector2 maxCam;
+    public Vector2 izqCam;
+    public Vector2 dchaCam;
 
-    [Header("Enemy")]
-    public GameObject enemyFollow;
+    //[Header("Enemy")]
+    //public GameObject enemyFollow;
 
     void FixedUpdate ()
     {
-        if (Turn.moverCamera)
+        float posX = follow.transform.position.x;
+        float posY = follow.transform.position.y;
+
+        transform.position = new Vector3
+            (Mathf.Clamp(posX, izqCam.x, dchaCam.x),
+             Mathf.Clamp(posY, izqCam.y, dchaCam.y),
+             transform.position.z);
+        /*if (Turn.moverCamera)
         {
             float posX = follow.transform.position.x;
             float posY = follow.transform.position.y;
 
             transform.position = new Vector3
-                (Mathf.Clamp(posX, minCam.x, maxCam.x),
-                 Mathf.Clamp(posY, minCam.y, maxCam.y),
+                (Mathf.Clamp(posX, izqCam.x, dchaCam.x),
+                 Mathf.Clamp(posY, izqCam.y, dchaCam.y),
                  transform.position.z);
         }
         if (Turn.turnos && !Turn.moverCamera)
@@ -59,7 +66,7 @@ public class CameraFollow : MonoBehaviour
                 (Mathf.Clamp(posX, minCam.x, maxCam.x),
                  Mathf.Clamp(posY, minCam.y, maxCam.y),
                  transform.position.z);
-        }
+        }*/
     }
         
 }

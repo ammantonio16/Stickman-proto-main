@@ -177,7 +177,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 13
-  m_Sprite: {fileID: 21300000, guid: 878e26be3e367304b905b853d371bd6d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e1dca00e3d5eb6e45b062090b74f968d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -201,7 +201,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.056325734, y: 0.16}
+  m_Offset: {x: -0.012490362, y: 0.16}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.15}
@@ -212,7 +212,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.35734856, y: 0.53}
+  m_Size: {x: 0.13479978, y: 0.53}
   m_EdgeRadius: 0
 --- !u!1 &1425663039361588081
 GameObject:
@@ -224,7 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1425663039361588080}
   - component: {fileID: 1425663039361587982}
-  - component: {fileID: 1425663039361587983}
+  - component: {fileID: 7021027951466266072}
   m_Layer: 20
   m_Name: cuerpo
   m_TagString: Player
@@ -298,8 +298,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1425663039361587983
-BoxCollider2D:
+--- !u!70 &7021027951466266072
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -311,19 +311,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.012064084, y: -0.12667304}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6666667, y: 1.0208334}
-    newSize: {x: 0.6666667, y: 1.0208334}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.27257264, y: 0.7674873}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.010115832, y: -0.1449939}
+  m_Size: {x: 0.2552889, y: 0.7308456}
+  m_Direction: 0
 --- !u!1 &1425663039846246151
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +326,8 @@ GameObject:
   - component: {fileID: 1425663039846246150}
   - component: {fileID: 489551508999722710}
   - component: {fileID: 2814581329114688856}
-  - component: {fileID: 7587988696051657624}
+  - component: {fileID: 5215602994305891223}
+  - component: {fileID: 4771402812007950804}
   m_Layer: 20
   m_Name: Player 1
   m_TagString: Player
@@ -398,18 +389,18 @@ MonoBehaviour:
   velocidad: 5
   direccionCinta: 0
   potenciaSalto: 5
-  piernas: {fileID: 1425663039361587983}
+  piernas: {fileID: 7021027951466266072}
   colisioncajasfuturas: 0
   cinto: 0
-  anim: {fileID: 7587988696051657624}
+  anim: {fileID: 5215602994305891223}
   balaCambiar: {fileID: 1313589717535401039}
   balaEmpuje: {fileID: 0}
   balaNegra: {fileID: 0}
   comprobar: 0
   balaOriginal: {fileID: 4807674687017979912, guid: 5eb8ddb7851788c418c30b4c314a2da1,
     type: 3}
-  antorcha: {fileID: 0}
-  luz1: {fileID: 0}
+  antorcha: {fileID: 1435868155133901251}
+  luz1: {fileID: 5560997625574384006}
 --- !u!114 &2814581329114688856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,9 +413,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e540e7a2528bbf49a49e36d983ed667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeBar: {fileID: 0}
   actualLife: 100
-  maxLife: 0
---- !u!95 &7587988696051657624
+--- !u!95 &5215602994305891223
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -443,6 +434,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4771402812007950804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425663039846246151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d21fcc0cf1a3b64fb3c647f99f95216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualLife: 100
+  maxLife: 0
 --- !u!1 &1425663039986608501
 GameObject:
   m_ObjectHideFlags: 0

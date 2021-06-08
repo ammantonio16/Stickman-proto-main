@@ -104,11 +104,16 @@ public class JugadorController : MonoBehaviour
             checkSalto = true;
             rb.velocity = new Vector2(movimientoHorizintal, rb.velocity.y);
             Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.5f), Color.green);
+            //pruebaanimacionsalto
+            anim.SetBool("Tierra", true);
+            anim.SetBool("Jump", false);
         }
         if (!IsGround)
         {
             rb.velocity = new Vector2(movimientoHorizintal, rb.velocity.y);
             checkSalto = false;
+            anim.SetBool("Tierra", false);
+            anim.SetBool("Jump", true);
         }
         if (IsCinta)
         {
@@ -121,6 +126,7 @@ public class JugadorController : MonoBehaviour
         {
             rb.AddForce(Vector2.right * direccionCinta * Time.deltaTime);
         }
+
 
     }
     void Movimiento()
@@ -148,11 +154,13 @@ public class JugadorController : MonoBehaviour
     {
         if (checkSalto)
         {
+            anim.SetBool("Jump", true);
             arriba = true;
         }
     }
     public void SaltoBotonUp()
     {
+        //anim.SetBool("Jump", false);
         arriba = false;
     }
     void Salto()
@@ -190,6 +198,8 @@ public class JugadorController : MonoBehaviour
             Destroy(collision.gameObject);
             luz1.SetActive(!enabled);
         }
+
+        
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -202,13 +212,22 @@ public class JugadorController : MonoBehaviour
         {
             cinto = false;
         }
+
+        
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
+
         if (collision.gameObject.tag == "CajasFuturo")
         {
             transform.parent = collision.transform;
             colisioncajasfuturas = true;
+        }
+
+        if (collision.gameObject.tag == "BulletEnemy")
+        {
+            anim.SetTrigger("Hurt");
         }
     }
     private void OnCollisionStay2D(Collision2D collision)

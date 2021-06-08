@@ -9,6 +9,8 @@ public class BulletEnemy : MonoBehaviour
     public float speed;
     public float daño;
     public int cantidad;
+    
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,6 +26,7 @@ public class BulletEnemy : MonoBehaviour
 
     void Update()
     {
+       
     }
 
     //Trigger que detecta las colisiones de la balaEnemy
@@ -50,10 +53,11 @@ public class BulletEnemy : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
-        {
+        {          
             Destroy(this.gameObject);
             GameObject playerLife = GameObject.FindGameObjectWithTag("Player");
             playerLife.GetComponent<Life>().VidaBaja(daño);
+            
         }
         if (collision.gameObject.tag == "Ground")
         {
@@ -61,5 +65,6 @@ public class BulletEnemy : MonoBehaviour
             
         }
 
+        
     }
 }

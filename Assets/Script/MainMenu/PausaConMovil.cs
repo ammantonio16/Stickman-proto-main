@@ -10,7 +10,6 @@ public class PausaConMovil : MonoBehaviour
     public GameObject movil;
     public Animator repetirEnd;
     public GameObject[] botones;
-    public int numeroBotones;
     void Start()
     {
 

@@ -17,6 +17,7 @@ public class Enemigo : MonoBehaviour
     public float fuerzaSalto;
     public float pruebaVelocidad;
     public bool escalaEnemigo;
+    public Animator anim;
 
     
 
@@ -69,7 +70,7 @@ public class Enemigo : MonoBehaviour
             //cte.TiempoRestanteEnemy();
             if (IsGrounded)
             {
-                Debug.Log("He tocado Tierra");
+                
                 Debug.DrawRay(checkGround.position, new Vector2(0f, -0.29f), Color.red);
                 if (escalaEnemigo)
                 {
@@ -220,9 +221,14 @@ public class Enemigo : MonoBehaviour
             miScale.Translate(0f, 0.1f, 0f);
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    
+    private void OnCollisionEnter2D (Collision2D coll)
     {
-        
+        if (coll.gameObject.tag == ("BalaPlayer"))
+        {
+            anim.SetTrigger("EnemyHurt");
+        }
     }
+    
 }
 
