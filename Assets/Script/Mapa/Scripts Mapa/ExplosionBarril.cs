@@ -39,15 +39,14 @@ public class ExplosionBarril : MonoBehaviour
                  
                 foreach(Collider2D obj in dañoExplosionRango)
                 {
-                    Debug.Log("!");
                     if (obj.gameObject.CompareTag("Enemy"))
                     {
-                        Debug.Log("Macaco");
+                        
                         obj.gameObject.GetComponentInParent<Life2Enemy>().VidaBaja(daño);
                     }
                     if (obj.gameObject.CompareTag("Enemy"))
                     {
-                        Debug.Log("Macaco");
+                        
                         obj.gameObject.GetComponentInParent<Life2Enemy>().VidaBaja(daño);
                     }
                 }

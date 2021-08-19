@@ -102,7 +102,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -149,13 +149,6 @@ MonoBehaviour:
   speed: 20
   "da\xF1o": 0
   cantidad: 10
-  rangoBala1: {fileID: 3484132567940292791, guid: 45e43f7ea009ceb49920499fc7fc5f1b,
-    type: 3}
-  rangoBala2: {fileID: 375990501035539847, guid: 2c4cafce48751514182895e9c80cd3ae,
-    type: 3}
-  rangoBala3: {fileID: 4442671667257593374, guid: 9df02381678e03048b23c7be12511f59,
-    type: 3}
-  rangobala: {x: 31.6038, y: -33.30085}
 --- !u!114 &6478441755593098307
 MonoBehaviour:
   m_ObjectHideFlags: 0

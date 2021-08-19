@@ -65,4 +65,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu/MenuPrincipal.unity
     guid: 9978b0dbf29937542bec4a6a0430834f
+  - enabled: 1
+    path: Assets/Scenes/Menu/MapaConNiveles.unity
+    guid: f09e3082847b67a4683db64f68ce6935
   m_configObjects: {}

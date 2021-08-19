@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Juador controller fue creado y habilitado, para con los controles de android, poder controlar al player 
+
 public class JugadorController : MonoBehaviour
 {
     Rigidbody2D rb;
@@ -65,6 +67,7 @@ public class JugadorController : MonoBehaviour
                 izquierda = false;
                 anim.SetBool("Walk", false);
             }
+            
         }
     }
 

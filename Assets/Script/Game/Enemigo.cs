@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Enemigo : MonoBehaviour
 {
@@ -13,7 +13,8 @@ public class Enemigo : MonoBehaviour
     public Transform checkpared;//Rayo que te permite detectar la altura
     public Transform enemigo;
     Rigidbody2D rb; //El como se va a mover el enemigo
-    public BoxCollider2D boxCuerpoPlayer;//El punto origen para saber la distancia que guarda con el enemigo
+    public Collider2D colliderCuerpoPlayer;//El punto origen para saber la distancia que guarda con el enemigo
+    public Collider2D colliderCuerpoSombi;
     public float fuerzaSalto;
     public float pruebaVelocidad;
     public bool escalaEnemigo;
@@ -29,6 +30,7 @@ public class Enemigo : MonoBehaviour
     public float radioPlayer;
     public GameObject mano;
     public GameObject target;
+    public GameObject targetSombi;
 
     [Header("Shoot")]
     public GameObject balaEnemigo;
@@ -39,22 +41,53 @@ public class Enemigo : MonoBehaviour
     public float tiempoEntreDisparos;
     public int municion;
 
-    [Header("Turnos")]
-    public ContadordeTiempo cte;
+    [Header("Layers")]
+    public LayerMask targets;
+
+    [Header("Gizmos")]
+    [Range(0f, 360f)]
+    public float visionAngle = 30f;
+    public float visionDistace = 10f;
+
+    public bool detectarPlayer = false;
+    public bool detectarSombi = false;
 
     Transform miScale;
-    bool arrastradoPorCascada;
+
+    [Header("Propiedades Fuego")]
+    public bool quemarSoldier = false;
+    public int numeroQuemadurasSoldier;
+    public float duracionQuemadurasSoldier;
+    float dañoEntreQuemadurasSoldier;
+    public GameObject fuegoSoldier;
+    GameObject fuegoSoldierClon;
+    Life2Enemy vidaEnemy;
+    public float detectionfuego;
+    int countFuego;
+    public int limiteCountFuego;
+    bool resetDetectionFuego;
+
+    [Header("Patrullar")]
+    Patrulla patrulla;
+    float reactivarPatrol;
     void Start()
     {
+        patrulla = GetComponent<Patrulla>();
+        vidaEnemy = GetComponent<Life2Enemy>();
         rb = GetComponent<Rigidbody2D>();
         miScale = GetComponent<Transform>();
     }
-
-
-
+    private void Update()
+    {
+        //detectarPlayer = false;
+        QuemadurasSoldier();
+    }
     void FixedUpdate()
     {
+        detectarPlayer = false;
+        detectarSombi = false;
         int bitmask = (1 << 9);
+        int fuego = (1 << 30);
         RaycastHit2D IsGrounded;
         IsGrounded = Physics2D.Raycast(checkGround.position, -Vector2.up, 0.29f, bitmask);
         Debug.DrawRay(checkGround.position, new Vector2(0f, -0.29f), Color.magenta);
@@ -67,90 +100,162 @@ public class Enemigo : MonoBehaviour
         Debug.DrawRay(checkpared.position, new Vector2(0.55f, 0f), Color.black);
         RaycastHit2D checkParedIzq;
         checkParedIzq = Physics2D.Raycast(checkpared.position, -Vector2.right, 0.55f, bitmask);
-            //cte.TiempoRestanteEnemy();
-            if (IsGrounded)
+        RaycastHit2D detectarFuego;
+        detectarFuego = Physics2D.Raycast(boxCuerpo.bounds.center, Vector2.right, 1f, fuego);
+        if (detectarFuego)
+        {
+            detectionfuego += Time.deltaTime;
+            if (detectionfuego < 4)
             {
-                
-                Debug.DrawRay(checkGround.position, new Vector2(0f, -0.29f), Color.red);
-                if (escalaEnemigo)
+                patrulla.enabled = false;
+                Debug.Log("Ramba");
+            }
+            if (countFuego < limiteCountFuego)
+            {
+                patrulla.puntosUbi++;
+                Debug.Log("El numero actual de puntos ubicacion es" + " " + patrulla.puntosUbi);
+                countFuego++;
+            }
+            if (detectionfuego >= 4)
+            {
+                patrulla.enabled = true;
+                resetDetectionFuego = true;
+            }
+        }
+        if (IsGrounded)
+        {
+            Debug.DrawRay(checkGround.position, new Vector2(0f, -0.29f), Color.red);
+            if (escalaEnemigo)
+            {
+                if (checkSalto)
                 {
-                    if (checkSalto)
+                    Debug.DrawRay(checksalto.position, new Vector2(0.55f, 0f), Color.green);
+                    rb.AddForce(new Vector2(1, fuerzaSalto), ForceMode2D.Impulse);
+                    if (checkPared)
                     {
-                        Debug.DrawRay(checksalto.position, new Vector2(0.55f, 0f), Color.green);
-                        rb.AddForce(new Vector2(1, fuerzaSalto), ForceMode2D.Impulse);
-                        if (checkPared)
-                        {
-                            Debug.DrawRay(checkpared.position, new Vector2(0.55f, 0f), Color.white);
-                            Vector3 stopPosition = enemigo.position;
-                            rb.MovePosition(stopPosition);
-                        }
-                    }
-                    if (!checkSalto)
-                    {
-                        Debug.DrawRay(checksalto.position, new Vector2(0.55f, 0f), Color.blue);
-                        //Area de Vision del enemigo
-                        int shootmask = (1 << 20);
-                        Collider2D areadeteccion;
-                        areadeteccion = Physics2D.OverlapCircle(boxCuerpo.bounds.center, deteccion, shootmask);
-                        //Cuendo detecta a "player"
-                        if (areadeteccion)
-                        {
-                            SeguirPlayer();
-                            Escala();
-                        
-                        }
-                        if (!areadeteccion)
-                        {
-                            mano.transform.rotation = Quaternion.Euler(0, 0, 0);
-                            municion = 0;
-                        }
+                        Debug.DrawRay(checkpared.position, new Vector2(0.55f, 0f), Color.white);
+                        Vector3 stopPosition = enemigo.position;
+                        rb.MovePosition(stopPosition);
                     }
                 }
-                if (!escalaEnemigo)
+                if (!checkSalto)
                 {
-                    if (checkSaltoIzq)
+                    Debug.DrawRay(checksalto.position, new Vector2(0.55f, 0f), Color.blue);
+                    //Area de Vision del enemigo
+                    Collider2D areadeteccion;
+                    areadeteccion = Physics2D.OverlapCircle(boxCuerpo.bounds.center, deteccion, targets);
+                    //Cuendo detecta a "player"
+                    if (areadeteccion)
                     {
-                        Debug.DrawRay(checksalto.position, new Vector2(-0.55f, 0f), Color.green);
-                        rb.AddForce(new Vector2(-1, fuerzaSalto), ForceMode2D.Impulse);
-                        if (checkParedIzq)
+                        patrulla.enabled = false;
+                        reactivarPatrol = 0;
+                        if (areadeteccion.gameObject.tag == "Sombis")
                         {
-                            Vector3 stopPosition = enemigo.position;
-                            rb.MovePosition(stopPosition);
+                            Debug.Log("Sombi te he visto");
+                            detectarSombi = true;
+                            if (!detectarFuego)
+                            {
+                                SeguirPlayer(targetSombi, colliderCuerpoSombi);
+                                Escala(targetSombi);
+                            }
+                            if (detectarFuego)
+                            {
+                                SeguirPlayer(this.gameObject, colliderCuerpoSombi);
+                                Escala(targetSombi);
+                            }
                         }
+                        if (areadeteccion.gameObject.tag == "Player")
+                        {
+                            Debug.Log("Player te he visto");
+                            detectarPlayer = true;
+                            if (!detectarFuego)
+                            {
+                                SeguirPlayer(target, colliderCuerpoPlayer);
+                                Escala(target);
+                            }
+                            if (detectarFuego)
+                            {
+                                SeguirPlayer(this.gameObject, colliderCuerpoPlayer);
+                                Escala(target);
+                            }
+                        }
+                        //Escala();
+
                     }
-                    if (!checkSaltoIzq)
+                    if (!areadeteccion)
                     {
-                        Debug.DrawRay(checksalto.position, new Vector2(0.55f, 0f), Color.blue);
-                        //Area de Vision del enemigo
-                        int shootmask = (1 << 20);
-                        Collider2D areadeteccion;
-                        areadeteccion = Physics2D.OverlapCircle(boxCuerpo.bounds.center, deteccion, shootmask);
-                        //Cuendo detecta a "player"
-                        if (areadeteccion)
+
+                        reactivarPatrol += Time.deltaTime;
+                        if (reactivarPatrol >= 5 && !detectarFuego)
                         {
-                            SeguirPlayer();
-                            Escala();
+                            reactivarPatrol = 5;
+                            patrulla.enabled = true;
                         }
-                        if (!areadeteccion)
-                        {
-                            contador = 0;
-                            mano.transform.rotation = Quaternion.Euler(0, 0, 0);
-                            municion = 0; 
-                            Vector3 movePosition = enemigo.position;
-                            rb.MovePosition(movePosition);
-                    }
+                        mano.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        municion = 0;
                     }
                 }
             }
-        
-        
+            if (!escalaEnemigo)
+            {
+                if (checkSaltoIzq)
+                {
+                    Debug.DrawRay(checksalto.position, new Vector2(-0.55f, 0f), Color.green);
+                    rb.AddForce(new Vector2(-1, fuerzaSalto), ForceMode2D.Impulse);
+                    if (checkParedIzq)
+                    {
+                        Vector3 stopPosition = enemigo.position;
+                        rb.MovePosition(stopPosition);
+                    }
+                }
+                if (!checkSaltoIzq)
+                {
 
+                    Debug.DrawRay(checksalto.position, new Vector2(0.55f, 0f), Color.blue);
+                    //Area de Vision del enemigo
+                    Collider2D areadeteccion;
+                    areadeteccion = Physics2D.OverlapCircle(boxCuerpo.bounds.center, deteccion, targets);
+                    //Cuendo detecta a "player"
+                    if (areadeteccion)
+                    {
+                        patrulla.enabled = false;
+                        reactivarPatrol = 0;
+                        if(areadeteccion.gameObject.tag == "Sombis")
+                        {
+                            Debug.Log("Sombi te he visto");
+                            detectarSombi = true;
+                            SeguirPlayer(targetSombi, colliderCuerpoSombi);
+                            Escala(targetSombi);
+                        }
+                        if (areadeteccion.gameObject.tag == "Player")
+                        {
+                            Debug.Log("Player te he visto");
+                            detectarPlayer = true;
+                            SeguirPlayer(target, colliderCuerpoPlayer);
+                            Escala(target);
+                        }
+                    }
+                    if (!areadeteccion)
+                    {
+                        reactivarPatrol+= Time.deltaTime;
+                        if (reactivarPatrol >= 5)
+                        {
+                            reactivarPatrol = 5;
+                            patrulla.enabled = true;
+                        }
+                        contador = 0;
+                        mano.transform.rotation = Quaternion.Euler(0, 0, 0);
+                        municion = 0;
+                    }
+                }
+            }
+        }
     }
-    void SeguirPlayer()
+    void SeguirPlayer(GameObject chosen, Collider2D chosenCollider2D)
     {
         //Dirección a la que va el enemigo: el "player"
         Vector3 movePosition = enemigo.position;
-        movePosition.x = Mathf.MoveTowards(transform.position.x, target.transform.position.x, enemigoSpeed * Time.deltaTime);
+        movePosition.x = Mathf.MoveTowards(transform.position.x, chosen.transform.position.x, enemigoSpeed * Time.deltaTime);
         rb.MovePosition(movePosition);
         if (escalaEnemigo)
         {
@@ -162,25 +267,25 @@ public class Enemigo : MonoBehaviour
         }
         int arealimite = (1 << 14);
         Collider2D areaPlayer;
-        areaPlayer = Physics2D.OverlapCircle(boxCuerpoPlayer.bounds.center, radioPlayer, arealimite);
+        areaPlayer = Physics2D.OverlapCircle(chosenCollider2D.bounds.center, radioPlayer, arealimite);
         Collider2D areaDisparo;
-        areaDisparo = Physics2D.OverlapCircle(boxCuerpoPlayer.bounds.center, radioDisparo, arealimite);
+        areaDisparo = Physics2D.OverlapCircle(chosenCollider2D.bounds.center, radioDisparo, arealimite);
+        if (areaDisparo)
+        {
+            Apuntar(chosen);
+        }
         if (areaPlayer)
         {
             movePosition = enemigo.position;
             rb.MovePosition(movePosition);
         }
-        if (areaDisparo)
-        {
-            Apuntar();
-        }
     }
-    void Apuntar()
+    void Apuntar(GameObject objective)
     {
-        float AngleRad = Mathf.Atan2(target.transform.position.y - mano.transform.position.y, target.transform.position.x - mano.transform.position.x);
+        float AngleRad = Mathf.Atan2(objective.transform.position.y - mano.transform.position.y, objective.transform.position.x - mano.transform.position.x);
         float AngleDeg = (180 / Mathf.PI) * AngleRad;
         mano.transform.rotation = Quaternion.Euler(0, 0, 90 + AngleDeg);
-        Debug.DrawRay(spawnBala.position, (target.transform.position - mano.transform.position), Color.blue);
+        Debug.DrawRay(spawnBala.position, (objective.transform.position - mano.transform.position), Color.blue);
         contador += Time.deltaTime;
         if (contador >= tiempoEntreDisparos)
         {
@@ -199,9 +304,9 @@ public class Enemigo : MonoBehaviour
             }
         }
     }
-    void Escala()
+    void Escala(GameObject priority)
     {
-        if (target.transform.position.x > enemigo.transform.position.x)
+        if (priority.transform.position.x > enemigo.transform.position.x)
         {
             enemigo.transform.localScale = new Vector2(1, 1);
             escalaEnemigo = true;
@@ -213,15 +318,32 @@ public class Enemigo : MonoBehaviour
         }
 
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnDrawGizmos()
     {
-        if(collision.gameObject.tag == "Agua")
+        if (visionAngle <= 0) return;
+
+        float halfVisionAngle = visionAngle / 2;
+
+        Vector2 u, v;
+
+        u = PointForAngle(halfVisionAngle, visionDistace);
+        v = PointForAngle(-halfVisionAngle, visionDistace);
+
+        Gizmos.color = detectarPlayer ? Color.green : Color.red;
+        if (detectarSombi)
         {
-            miScale.localScale = miScale.localScale + new Vector3(0.01f, 0.01f);
-            miScale.Translate(0f, 0.1f, 0f);
+            Gizmos.color = Color.yellow;
         }
+
+        Gizmos.DrawLine(boxCuerpo.bounds.center, (Vector2)boxCuerpo.bounds.center + u);
+        Gizmos.DrawLine(boxCuerpo.bounds.center, (Vector2)boxCuerpo.bounds.center + v);
     }
-    
+
+    Vector3 PointForAngle(float angle, float distance)
+    {
+        return boxCuerpo.transform.TransformDirection(new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad))) * distance;
+    }
+
     private void OnCollisionEnter2D (Collision2D coll)
     {
         if (coll.gameObject.tag == ("BalaPlayer"))
@@ -229,6 +351,34 @@ public class Enemigo : MonoBehaviour
             anim.SetTrigger("EnemyHurt");
         }
     }
-    
+    void QuemadurasSoldier()
+    {
+        if (quemarSoldier)
+        {
+            duracionQuemadurasSoldier += Time.deltaTime;
+            if (numeroQuemadurasSoldier < 1)
+            {
+                Debug.Log("Se ha instanciado el fuego bien Sombi");
+                fuegoSoldierClon = Instantiate(fuegoSoldier, miScale.transform);
+                numeroQuemadurasSoldier++;
+            }
+            if (fuegoSoldierClon != null && Time.time > dañoEntreQuemadurasSoldier + 2f)
+            {
+                //vida.DañoRecibidoZombie(10);
+                vidaEnemy.VidaBaja(10);
+                dañoEntreQuemadurasSoldier = Time.time;
+                Debug.Log("El fuego existe Sombi");
+            }
+            if (duracionQuemadurasSoldier >= 10)
+            {
+                quemarSoldier = false;
+                Destroy(fuegoSoldierClon);
+                numeroQuemadurasSoldier = 0;
+                duracionQuemadurasSoldier = 0;
+                dañoEntreQuemadurasSoldier = Time.time;
+            }
+        }
+    }
 }
+
 

@@ -10,8 +10,11 @@ public class PausaConMovil : MonoBehaviour
     public GameObject movil;
     public Animator repetirEnd;
     public GameObject[] botones;
+    public GameObject narrativa;
     void Start()
     {
+        movilAn.SetBool("PA", true);
+        movil.SetActive(false);
 
         botones = GameObject.FindGameObjectsWithTag("Botones");
         for (int i = 0; i < botones.Length; i++)
@@ -23,10 +26,11 @@ public class PausaConMovil : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
     }
     public void Pausa()
     {
-        //Time.timeScale = 0;
+        
         movilAn.SetBool("PA", true);
         StartCoroutine(TiempoPausa(time));
         movil.SetActive(false);

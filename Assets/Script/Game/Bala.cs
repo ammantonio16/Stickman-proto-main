@@ -15,11 +15,11 @@ public class Bala : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        if (Turn.direccionbala)
+        if (JugadorMovimiento.direccionBala)
         {
             rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
         }
-        if (!Turn.direccionbala)
+        if (!JugadorMovimiento.direccionBala)
         {
             rb.AddForce(-transform.right * speed, ForceMode2D.Impulse);
         }

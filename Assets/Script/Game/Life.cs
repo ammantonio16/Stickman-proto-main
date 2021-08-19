@@ -17,7 +17,7 @@ public class Life : MonoBehaviour
     {
         //VidaBaja(maxLife);
 
-        lifeBar.fillAmount = actualLife /*/ maxLife*/;
+        //lifeBar.fillAmount = actualLife /*/ maxLife*/;
     }
 
     public void VidaBaja (float daño)

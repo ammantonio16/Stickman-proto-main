@@ -35,6 +35,11 @@ TagManager:
   - Transixion
   - Pantalla
   - Boton Cerrar
+  - Nivel
+  - Sombis
+  - Cadaver
+  - EscalerasMano
+  - Fuego
   layers:
   - Default
   - TransparentFX
@@ -61,12 +66,12 @@ TagManager:
   - Cinta
   - BalaPlayer
   - BalaEnemy
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - AlarmaCocheOn
+  - Sombis
+  - BulletInvisible
+  - BlockBetweenCollision
+  - Cadaver
+  - Fire
   - 
   m_SortingLayers:
   - name: "Pesta\xF1as"

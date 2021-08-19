@@ -34,7 +34,7 @@ public class Ascensor : MonoBehaviour
             if (subir)
             {
                 ascensor.position = Vector2.MoveTowards(ascensor.position, piso1.position, step);
-                if (Vector2.Distance(ascensor.position, piso1.position) <= 0)
+                if (Vector2.Distance(ascensor.position, piso1.position) <= 0.1)
                 {
                     time++;
                     StartCoroutine("BajarSubir", 2f);
@@ -43,7 +43,7 @@ public class Ascensor : MonoBehaviour
             if (bajar)
             {
                 ascensor.position = Vector2.MoveTowards(ascensor.position, piso0.position, step);
-                if (Vector2.Distance(ascensor.position, piso0.position) <= 0)
+                if (Vector2.Distance(ascensor.position, piso0.position) <= 0.1)
                 {
                     time++;
                     StartCoroutine("SubirBajar", 2f);

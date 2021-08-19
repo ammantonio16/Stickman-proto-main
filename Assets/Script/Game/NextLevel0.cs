@@ -9,6 +9,7 @@ public class NextLevel0 : MonoBehaviour
     public Animator siguienteNivel;
     public Canvas pantallaGanar;
     ControlDesbloqueoNiveles unlock;
+    public int numeroNivel;
 
     private void Awake()
     {
@@ -21,8 +22,16 @@ public class NextLevel0 : MonoBehaviour
             pantallaGanar.SetActive(true);
             siguienteNivel.SetTrigger("Marca Ganar");
             unlock.DesbloquearNiveles();
+            StartCoroutine("ActivarListaDeNiveles");
+            
             
         }
+    }
+    IEnumerator ActivarListaDeNiveles()
+    {
+        yield return new WaitForSeconds(1f);
+        ControlDesbloqueoNiveles.listaDeNiveles[numeroNivel] = true;
+
     }
 
 }

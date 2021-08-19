@@ -6,8 +6,8 @@ public class Life2Enemy : MonoBehaviour
 {
     public float actualLife;
     public float maxLife;
-
-
+    public Animator player;
+    public CambiarEscalaConMira centroPersonaje;
     void Update()
     {
         VidaBaja(maxLife);
@@ -19,7 +19,9 @@ public class Life2Enemy : MonoBehaviour
         actualLife = actualLife - daño;
         if (actualLife <= 0)
         {
-            Destroy(this.gameObject);
+            centroPersonaje.SetActive(false);
+            player.SetBool("Dead", true);
+
         }
     }
 }
