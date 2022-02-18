@@ -5,7 +5,7 @@ using UnityEngine;
 public class TransicionMuerte : MonoBehaviour
 {
     public Animator transicionMuerte;
-    public Life vidaPlayer;
+    public PlayerLife vidaPlayer;
     public Canvas repetir;
     void Start()
     {
@@ -15,9 +15,9 @@ public class TransicionMuerte : MonoBehaviour
     
     void Update()
     {
-        if(vidaPlayer.actualLife <= 0)
+        if(vidaPlayer.health <= 0)
         {
-            transicionMuerte.SetFloat("VidaPlayer", vidaPlayer.actualLife);
+            transicionMuerte.SetFloat("VidaPlayer", vidaPlayer.health);
             repetir.SetActive(true);
         }
     }

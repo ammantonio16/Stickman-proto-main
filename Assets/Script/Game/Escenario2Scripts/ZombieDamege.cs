@@ -5,9 +5,13 @@ using UnityEngine;
 public class ZombieDamege : MonoBehaviour
 {
     public float fuerzaEmpuje;
-    public GameObject bulletInvisible;
     public Transform centerSombi;
     float timeShoot;
+    Rigidbody2D player;
+    public Rigidbody2D enemy;
+
+    public float knockTime;
+
     void Start()
     {
         
@@ -16,20 +20,65 @@ public class ZombieDamege : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (enemy != null)
+        {
+            if (enemy.GetComponent<ZombieLife>().vidaZombie <= 0)
+            {
+                enemy = null;
+            }
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Player ha entrado");
-        if(collision.gameObject.tag == "Player" && Time.time > timeShoot + 0.25)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Te he atacado");
-            collision.gameObject.GetComponentInParent<Life2Enemy>().actualLife -= 4;
-            timeShoot = Time.time;
-            GameObject objectKnockback = Instantiate(bulletInvisible, centerSombi.position, centerSombi.rotation );
+            player = collision.GetComponentInParent<Rigidbody2D>();
+            if(player != null)
+            {
+                Debug.Log("guacamole;");
+                player.GetComponent<JugadorMovimiento>().velocidad = 0;
+                player.GetComponent<JugadorMovimiento>().siendoEmpujado = true;
+                player.GetComponent<LifePlayer>().VidaBaja(10);
+                Vector2 diferencia = player.transform.position - transform.position;
+                diferencia = diferencia.normalized * fuerzaEmpuje;
+                player.AddForce(diferencia, ForceMode2D.Impulse);
+            }
         }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Rigidbody2D enemy = collision.GetComponentInParent<Rigidbody2D>();
+            if (enemy != null)
+            {
+                Debug.Log("guacamole;");
+                enemy.GetComponent<ZombieLife>().DañoRecibidoEnemy(10);
+                if (enemy.GetComponent<ZombieLife>().vidaZombie > 0)
+                {
+                    enemy.GetComponent<Enemigo>().enabled = false;
+                    Vector2 diferencia2 = enemy.transform.position - transform.position;
+                    diferencia2 = diferencia2.normalized * fuerzaEmpuje;
+                    enemy.AddForce(diferencia2, ForceMode2D.Impulse);
+                    //Quiza desactivar EnemigoIA momentaneamente para que no se recoloque rápidamente si tiene dos sombis
+                    StartCoroutine(KnockOut(enemy));
+                    //Es posible que esto se adhiera a cambios, ya que aun queda por probar cuando hay 2 sombis y ver como funciona con la velocidad de la IA enemiga. 
+                }
+                if (enemy.GetComponent<ZombieLife>().vidaZombie <= 0)
+                {
+                    enemy = null;
+                }
+            }
+        }
+        IEnumerator KnockOut(Rigidbody2D enemy)
+        {
+            if(enemy != null)
+            {
+                yield return new WaitForSeconds(knockTime);
+                enemy.velocity = Vector2.zero;
+                enemy.GetComponent<Enemigo>().enabled = true;
+                //Activar enemigoIA
+
+            }
+        }
+        
     }
-    //collision.gameObject.GetComponentInParent<Life2Enemy>().actualLife -= 2;
-    //collision.gameObject.GetComponentInParent<Rigidbody2D>().AddForce(transform.up * fuerzaEmpuje, ForceMode2D.Impulse);
 }
 

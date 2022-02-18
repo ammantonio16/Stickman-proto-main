@@ -1,29 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ZombieLife : MonoBehaviour
 {
-    public float vidaZombie = 100f;
+    public float vidaZombie;
+    public float maxVidaZombie;
+    public Image barraVidaSombi;
     public GameObject[] cuerpoZombie;
-    public float damage;
     Rigidbody2D rbSombi;
     ZombieIA zombieIa;
+    Enemigo enemyIa;
     ZombieDamege dañoDelZombie;
     Animator zombieAnimation;
+    float basaka = 0;
+
+    public bool enemigo;
+    public bool sombi;
+
+    float timeDestroyRb;
+
+    public bool checkMuerte;
 
     void Start()
     {
         zombieAnimation = GetComponent<Animator>();
         dañoDelZombie = GetComponentInChildren<ZombieDamege>();
-        zombieIa = GetComponent<ZombieIA>();
+        if (sombi)
+        {
+            zombieIa = GetComponent<ZombieIA>();
+        }
+        if (enemigo)
+        {
+            enemyIa = GetComponent<Enemigo>();
+        }
         rbSombi = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        DañoRecibidoZombie(damage);
+        barraVidaSombi.fillAmount = vidaZombie / maxVidaZombie;
+        if (sombi)
+        {
+            DañoRecibidoZombie(basaka);
+        }
+        if (enemigo)
+        {
+            DañoRecibidoEnemy(basaka);
+        }
+        
+
     }
     public void DañoRecibidoZombie(float daño)
     {
@@ -31,20 +59,48 @@ public class ZombieLife : MonoBehaviour
         vidaZombie -= daño;
         if(vidaZombie <= 0)
         {
+
+            gameObject.layer = 0;
             zombieIa.detectarPlayer = false;
             zombieIa.detectarEnemy = false;
             Destroy(dañoDelZombie);
             gameObject.tag = "Cadaver";
-            //float tiempoParaAction = Time.deltaTime;
-            if(!ZombieIA.tocarGround && !zombieIa.rayoEspalda)
+            if (!ZombieIA.tocarGround)
             {
-                zombieIa.enabled = false;
                 foreach (GameObject parteZombie in cuerpoZombie)
                 {
-                    parteZombie.GetComponent<Collider2D>().enabled = false;
+                    parteZombie.layer = 0;
                 }
+                
+            }
+            if (checkMuerte)
+            {
                 Destroy(rbSombi);
             }
         }
+    }
+    public void DañoRecibidoEnemy(float daño)
+    {
+        zombieAnimation.SetFloat("VidaEnemy", vidaZombie);
+        vidaZombie -= daño;
+        if (vidaZombie <= 0)
+        {
+            gameObject.layer = 0;
+            enemyIa.detectarPlayer = false;
+            enemyIa.detectarSombi = false;
+            gameObject.tag = "Cadaver";
+            foreach (GameObject parteEnemy in cuerpoZombie)
+            {
+                parteEnemy.tag = "Cadaver";
+                parteEnemy.layer = 0;
+            }
+            if (checkMuerte)
+            {
+                Destroy(rbSombi);
+            }
+            
+            
+        }
+        
     }
 }

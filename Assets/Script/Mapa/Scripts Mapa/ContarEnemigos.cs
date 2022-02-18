@@ -6,7 +6,7 @@ public class ContarEnemigos : MonoBehaviour
 {
     [SerializeField]
     public static int numeroEnemigos = 0;
-    public Life[] enemy;
+    public PlayerLife[] enemy;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")

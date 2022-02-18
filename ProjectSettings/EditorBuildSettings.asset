@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/CampaignScenes/Campaign1.unity
     guid: 3b36be366a109234d94273fdceca30e5
   - enabled: 1
-    path: Assets/Scenes/CampaignScenes/Campaign.unity
+    path: Assets/Scenes/CampaignScenes/Campaign2.unity
     guid: 2632c2cfc62bcd8458a9ef1eaefd5cb9
   - enabled: 1
     path: Assets/Scenes/CampaignScenes/Campaign3.unity

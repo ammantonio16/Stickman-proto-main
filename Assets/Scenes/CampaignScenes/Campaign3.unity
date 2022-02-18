@@ -476,6 +476,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1425663039846246151, guid: 0b6ae8e3895c24a4683486071f2fa82d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1425663041072796254, guid: 0b6ae8e3895c24a4683486071f2fa82d,
         type: 3}
       propertyPath: m_LocalRotation.z
@@ -4235,10 +4240,20 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: IzquierdaBotonUp
       objectReference: {fileID: 0}
+    - target: {fileID: 1201747172490801032, guid: a714d9ac7ea43494aa5f7d0db98e02d7,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5176471
+      objectReference: {fileID: 0}
     - target: {fileID: 1201747172490801047, guid: a714d9ac7ea43494aa5f7d0db98e02d7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201747173485750184, guid: a714d9ac7ea43494aa5f7d0db98e02d7,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.5176471
       objectReference: {fileID: 0}
     - target: {fileID: 1201747173485750199, guid: a714d9ac7ea43494aa5f7d0db98e02d7,
         type: 3}
@@ -7721,6 +7736,7 @@ MonoBehaviour:
   animPressEscKey: {fileID: 1072815291}
   pressEscKey: {fileID: 1072815292}
   pausaConMovil: {fileID: 5324566899415491530}
+  player: {fileID: 1850624188}
 --- !u!1 &1850624188 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1425663039846246151, guid: 0b6ae8e3895c24a4683486071f2fa82d,
@@ -9847,7 +9863,6 @@ MonoBehaviour:
   movil: {fileID: 218285169}
   repetirEnd: {fileID: 1016036819}
   botones: []
-  narrativa: {fileID: 0}
 --- !u!4 &5324566899415491531
 Transform:
   m_ObjectHideFlags: 0

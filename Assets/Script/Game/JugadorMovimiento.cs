@@ -15,6 +15,7 @@ public class JugadorMovimiento : MonoBehaviour
     public static bool direccionBala;
 
     [Header("Atributos Movimiento")]
+    public float movimentoHx;
     public float velocidad;
     bool escalaX;
 
@@ -46,12 +47,23 @@ public class JugadorMovimiento : MonoBehaviour
     public GameObject fuegoPrueba;
     GameObject fuegoClon;
     public int numeroQuemaduras = 0;
-    Life2Enemy vidaPlayer;
+    LifePlayer vidaPlayer;
+
+
+    public bool siendoEmpujado;
+    public float resetSiendoEmpujado;
+
+    [Header("Disparo Texto")]
+    public Canvas municionTexto;
+
+    bool escondite = false;
 
 
     void Start()
     {
-        vidaPlayer = GetComponent<Life2Enemy>();
+        anim = GetComponent<Animator>();
+        siendoEmpujado = false;
+        vidaPlayer = GetComponent<LifePlayer>();
         levantarse = 0;
         direccionBala = true;
         rb = GetComponent<Rigidbody2D>();
@@ -61,12 +73,31 @@ public class JugadorMovimiento : MonoBehaviour
 
     void Update()
     {
+        
+        if (myTransform.localScale.x == 1)
+        {
+            municionTexto.transform.localScale = new Vector3(0.1f, 0.1f, 1f);
+        }
+        if (myTransform.localScale.x == -1)
+        {
+            municionTexto.transform.localScale = new Vector3(-0.1f, 0.1f, 1f);
+        }
+        if (siendoEmpujado)
+        {
+            resetSiendoEmpujado += Time.deltaTime;
+            if (resetSiendoEmpujado >= 1.2f)
+            {
+                siendoEmpujado = false;
+                resetSiendoEmpujado = 0;
+            }
+        }
         Quemaduras();
         int bitmask = (1 << 9);
         RaycastHit2D IsGround;
-        IsGround = Physics2D.Raycast(piernas.bounds.center, -Vector2.up, 0.45f, bitmask);
+        IsGround = Physics2D.Raycast(piernas.bounds.center, -Vector2.up, 0.65f, bitmask);
         RaycastHit2D RayoEspaldaPlayer;
         RayoEspaldaPlayer = Physics2D.Raycast(puntoEspalda.position, -puntoEspalda.right, espaldaRayDistance, bitmask);
+        //Camuflaje Cadaver
         if (camuflaje)
         {
             tiempoCamuflaje += Time.deltaTime;
@@ -165,14 +196,15 @@ public class JugadorMovimiento : MonoBehaviour
             float x = Input.GetAxis("Horizontal");
             int bitmask = (1 << 9);
             RaycastHit2D IsGround;
-            IsGround = Physics2D.Raycast(piernas.bounds.center, -Vector2.up, 0.45f, bitmask);
-            Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.5f), Color.red);
+            IsGround = Physics2D.Raycast(piernas.bounds.center, -Vector2.up, 0.65f, bitmask);
+            //Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.65f), Color.red);
             int cinta = (1 << 22);
             RaycastHit2D IsCinta;
             IsCinta = Physics2D.Raycast(piernas.bounds.center, -Vector2.up, 0.45f, cinta);
             Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.5f), Color.red);
             if (IsGround)
             {
+                Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.5f), Color.green);
                 Movimiento();
                 saltoEnabled = true;
                 anim.SetBool("Jump", false);
@@ -186,6 +218,7 @@ public class JugadorMovimiento : MonoBehaviour
             }
             if (!IsGround)
             {
+                Debug.DrawRay(piernas.bounds.center, new Vector2(0f, -0.5f), Color.red);
                 aumentoSalto = false;
                 fuerzaSalto = 5;
                 rb.velocity = new Vector2(x * velocidad, rb.velocity.y);
@@ -224,56 +257,61 @@ public class JugadorMovimiento : MonoBehaviour
     }
     void Movimiento()
     {
-        float x = Input.GetAxis("Horizontal");
-        //Debug.Log("El valor del mocimiento del personaje es " + " " + x);
-        rb.velocity = new Vector2(x * velocidad, 0f);
-        aumentoSalto = true;
-        if (aumentoSalto)
+        movimentoHx = Input.GetAxis("Horizontal");
+        if (!siendoEmpujado)
         {
-            fuerzaSalto = 7;
-        }
-        if (x > 0)
-        {
-            anim.SetBool("Walk", true);
-            velocidad = 5;
-            if (ArmaController.activarDisparo)
+            if (movimentoHx > 0 || movimentoHx < 0)
             {
-                if (escalaX)
+                rb.velocity = new Vector2(movimentoHx * velocidad, 0f);
+            }
+            aumentoSalto = true;
+            if (aumentoSalto)
+            {
+                fuerzaSalto = 7;
+            }
+            if (movimentoHx > 0)
+            {
+                anim.SetBool("Walk", true);
+                velocidad = 5;
+                if (ArmaController.activarDisparo)
                 {
-                    velocidad = 5;
+                    if (escalaX)
+                    {
+                        velocidad = 5;
+                    }
+                    else
+                    {
+                        velocidad = 2;
+                    }
                 }
-                else
+
+                if (!ArmaController.activarDisparo)
+                {
+                    myTransform.localScale = new Vector3(1, 1, 1);
+                }
+            }
+            else if (movimentoHx < 0)
+            {
+                if (escalaX && CambiarEscalaConMira.calculo.x > 0)
                 {
                     velocidad = 2;
                 }
+                if (!escalaX && CambiarEscalaConMira.calculo.x < 0)
+                {
+                    velocidad = 5;
+                }
+                if (!ArmaController.activarDisparo)
+                {
+                    myTransform.localScale = new Vector3(-1, 1, 1);
+                }
+                anim.SetBool("Walk", true);
             }
-            
-            if(!ArmaController.activarDisparo)
+            else
             {
-                myTransform.localScale = new Vector3(1, 1, 1);
+                anim.SetBool("Walk", false);
+                aumentoSalto = false;
+                fuerzaSalto = 5;
             }
-        }
-        else if (x < 0)
-        {
-            if(escalaX && CambiarEscalaConMira.calculo.x > 0)
-            {
-                velocidad = 2;
-            }
-            if (!escalaX && CambiarEscalaConMira.calculo.x < 0)
-            {
-                velocidad = 5;
-            }
-            if (!ArmaController.activarDisparo)
-            {
-                myTransform.localScale = new Vector3(-1, 1, 1);
-            }
-            anim.SetBool("Walk", true);
-        }
-        else
-        {
-            anim.SetBool("Walk", false);
-            aumentoSalto = false;
-            fuerzaSalto = 5;
         }
     }
     void CambiarEscala()
@@ -316,6 +354,7 @@ public class JugadorMovimiento : MonoBehaviour
         {
             Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAH!");
         }
+ 
     }
 
     void Quemaduras()

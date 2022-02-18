@@ -40,6 +40,7 @@ TagManager:
   - Cadaver
   - EscalerasMano
   - Fuego
+  - Escondite
   layers:
   - Default
   - TransparentFX
@@ -72,11 +73,29 @@ TagManager:
   - BlockBetweenCollision
   - Cadaver
   - Fire
-  - 
+  - Escondite
   m_SortingLayers:
   - name: "Pesta\xF1as"
     uniqueID: 3188289863
     locked: 0
+  - name: BackGround Cueva
+    uniqueID: 1192975471
+    locked: 0
+  - name: Decoracion Cueva
+    uniqueID: 2636028381
+    locked: 0
+  - name: BackGround
+    uniqueID: 3082918139
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 795483025
+    locked: 0
+  - name: Particulas
+    uniqueID: 794616035
+    locked: 0
+  - name: BackGroundUp
+    uniqueID: 3848858133
     locked: 0

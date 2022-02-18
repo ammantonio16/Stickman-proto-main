@@ -14,6 +14,7 @@ public class TextBox : MonoBehaviour
     public Text pressEscKey;
     public int count;
     public PausaConMovil pausaConMovil;
+    public GameObject player;
      
     public void Start()
     {
@@ -37,6 +38,7 @@ public class TextBox : MonoBehaviour
             }
             if (count == 2 )
             {
+                player.gameObject.SetActive(true);
                 pressEscKey.SetActive(false);
                 Destroy(texto);
                 pausaConMovil.movilAn.SetBool("PA", false);

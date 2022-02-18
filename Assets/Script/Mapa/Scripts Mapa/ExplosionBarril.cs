@@ -42,12 +42,12 @@ public class ExplosionBarril : MonoBehaviour
                     if (obj.gameObject.CompareTag("Enemy"))
                     {
                         
-                        obj.gameObject.GetComponentInParent<Life2Enemy>().VidaBaja(daño);
+                        obj.gameObject.GetComponentInParent<LifePlayer>().VidaBaja(daño);
                     }
                     if (obj.gameObject.CompareTag("Enemy"))
                     {
                         
-                        obj.gameObject.GetComponentInParent<Life2Enemy>().VidaBaja(daño);
+                        obj.gameObject.GetComponentInParent<LifePlayer>().VidaBaja(daño);
                     }
                 }
             }
@@ -73,12 +73,12 @@ public class ExplosionBarril : MonoBehaviour
                     if (obj.gameObject.CompareTag("Enemy"))
                     {
                         Debug.Log("Macaco");
-                        obj.gameObject.GetComponentInParent<Life2Enemy>().VidaBaja(daño);
+                        obj.gameObject.GetComponentInParent<LifePlayer>().VidaBaja(daño);
                     }
                     if (obj.gameObject.CompareTag("Player"))
                     {
                         Debug.Log("Macaco");
-                        obj.gameObject.GetComponentInParent<Life2Enemy>().VidaBaja(daño);
+                        obj.gameObject.GetComponentInParent<LifePlayer>().VidaBaja(daño);
                     }
                 }
             }

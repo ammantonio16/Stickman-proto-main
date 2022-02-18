@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ZombieIA : MonoBehaviour
 {
+    [Header("ID")]
+    public int idZombie;
     public Transform checkGround;
     public Transform cabezaVista;
     public float radioVista;
@@ -25,11 +27,10 @@ public class ZombieIA : MonoBehaviour
     public bool alarmaCoche = false;
 
     public Transform player;
-    public Transform[] enemies;
-    int countEnemies;
-    Vector2 enemiesVector;
-    Vector2 playerVector;
-    float velocidad = 2;
+    public Transform enemies;
+    public Vector2 enemiesVector;
+    public Vector2 playerVector;
+    public float velocidad = 2;
     float angleHeadPlayer;
     float angleHeadEnemy;
     float angleHeadWithVectorPlayer;
@@ -57,17 +58,22 @@ public class ZombieIA : MonoBehaviour
     [Header("Patrullar")]
     Patrulla patrulla;
     float reactivarPatrulla;
+
+    public bool parar;
+    public Transform almacenarEnemy;
+    public float radioAlmacen;
+    public int blockTarget;
+    public float pomelo;
+
+    //Probar enum y switch
     void Start()
     {
+        parar = true;
         patrulla = GetComponent<Patrulla>();
         rayoEspalda = true;
         rbSombi = GetComponent<Rigidbody2D>();
         transformSombi = GetComponent<Transform>();
         vidaSombi = GetComponent<ZombieLife>();
-        foreach (Transform enemyPos in enemies)
-        {
-            countEnemies++;
-        }
         
     }
 
@@ -75,138 +81,224 @@ public class ZombieIA : MonoBehaviour
     void Update()
     {
         QuemadurasSombi();
-
-        playerToAttack = false;
         BalaDirection();
-        distancePlayerSombi = transformSombi.position.x - player.position.x;
+
+        parar = true;
+        playerToAttack = false;
         detectarEnemy = false;
         detectarPlayer = false;
+
+        distancePlayerSombi = transformSombi.position.x - player.position.x;
         playerVector = player.position - cabezaVista.position;
         angleHeadWithVectorPlayer = Vector3.Angle(playerVector.normalized, cabezaVista.right);
 
-        for (int i = 0; i < countEnemies; i++)
-        {
-             enemiesVector = enemies[i].position - cabezaVista.position;
-        }
-        angleHeadWithVectorEnemy = Vector3.Angle(enemiesVector.normalized, cabezaVista.right);
+        int enemy = 1 << 14;
+        Collider2D seeEnemy;
+        seeEnemy = Physics2D.OverlapCircle(transform.position, radioVista, objetivoVista);
 
-        RaycastHit2D seeEnemy;
-        seeEnemy = Physics2D.CircleCast(cabezaVista.position, radioVista, Vector2.right, distanciaVista, objetivoVista);
+        //Almacena al enemigo y cuando él muere lo quita del almacenaje
+        #region
+        Collider2D[] areaAlmacen;
+        areaAlmacen = Physics2D.OverlapCircleAll(almacenarEnemy.position, radioAlmacen, enemy);
+        //Calculo para girar la cabeza cuando  ve al enemigo
+        if (enemies != null)
+        {
+            enemiesVector = enemies.transform.position - cabezaVista.position;
+            angleHeadWithVectorEnemy = Vector3.Angle(enemiesVector.normalized, cabezaVista.right);
+        }
+        //Almacena a un único enemigo en una variable. Solo a uno para que no se vuelva loco y cambie constantemente de Target
+        foreach (Collider2D uniTarget in areaAlmacen)
+        {
+            if (blockTarget < 1)
+            {
+                Transform patata = uniTarget.GetComponentInParent<Transform>();
+                enemies = patata;
+                blockTarget++;
+            }
+        }
+        //Cuando muere el enemigo, resetea todos los valores para poder almacenar de nuevo otro.
+        if(enemies != null)
+        {
+            if(enemies.GetComponentInParent<ZombieLife>().vidaZombie <= 0)
+            {
+                gameObject.GetComponent<Animator>().ResetTrigger("Attack");
+                gameObject.GetComponentInChildren<ZombieDamege>().enemy = null;
+                pomelo += Time.deltaTime;
+                if(pomelo >= 0.2)
+                {
+                    blockTarget = 0;
+                    enemies = null;
+                    detectarEnemy = false;
+                }
+            }
+        }
+        #endregion
+
+        //Dejas de almacenar al Player para que deje de atacarte en el suelo
+        #region
+        if (player != null)
+        {
+            if(player.GetComponent<LifePlayer>().actualLife <= 0)
+            {
+                player = null;
+                detectarPlayer = false;
+            }
+        }
+        #endregion
+
+        //El Player o el Enemy han entrado en la visión del Sombi
+        
         if (seeEnemy)
         {
             if (transformSombi.localScale.x == 1)
             {
-                if (Vector3.Angle(playerVector.normalized, cabezaVista.right) < visionAngle / 2 && vidaSombi.vidaZombie > 0)
+                if (!detectarEnemy)
                 {
-                    if (playerVector.magnitude < visionDistace)
+                    if (Vector3.Angle(playerVector.normalized, cabezaVista.right) < visionAngle / 2 && vidaSombi.vidaZombie > 0)
                     {
-                        if (!alarmaCoche)
+                        if (playerVector.magnitude < visionDistace)
                         {
-                            reactivarPatrulla = 0;
-                            patrulla.enabled = false;
-                            AnimationAttack();
-                            if (distancePlayerSombi >= radioAnimationAttack || distancePlayerSombi <= -radioAnimationAttack)
+                            if (!alarmaCoche)
                             {
-                                detectarPlayer = true;
-                            }
-                            else
-                            {
-                                detectarPlayer = false;
-                            }
-                            Vector3 targetPlayer = player.position - cabezaVista.position;
-                            cabezaVista.right = targetPlayer;
-                            angleHeadPlayer = Vector3.Angle(targetPlayer, transform.right);
-                            if (angleHeadPlayer > 90)
-                            {
-                                transformSombi.localScale = new Vector3(-1f, 1f, 1f);
-                            }
-                        }
-                    }
-                }
-                /*if (Vector3.Angle(playerVector.normalized, cabezaVista.right) > visionAngle / 2 && vidaSombi.vidaZombie > 0)
-                {
-                    reactivarPatrulla += Time.deltaTime;
-                    Debug.Log("El tiempo para reactivar el script de Patrulla es de" + " " + reactivarPatrulla);
-                    if (reactivarPatrulla >= 5)
-                    {
-                        patrulla.enabled = true;
-                    }
-                }*/
-                if (Vector3.Angle(enemiesVector.normalized, cabezaVista.right) < visionAngle / 2 && vidaSombi.vidaZombie > 0)
-                {
-                    if (enemiesVector.magnitude < visionDistace)
-                    {
+                                reactivarPatrulla = 0;
+                                patrulla.enabled = false;
+                                AnimationAttack();
 
-                        if (!alarmaCoche)
-                        {
-                            reactivarPatrulla = 0;
-                            patrulla.enabled = false;
-                            AnimationAttack();
-                            detectarEnemy = true;
-                            Vector3 targetEnemy = enemies[0].position - cabezaVista.position;
-                            cabezaVista.right = targetEnemy;
-                            angleHeadEnemy = Vector3.Angle(targetEnemy, transform.right);
-                            if (angleHeadEnemy > 90)
-                            {
-                                transformSombi.localScale = new Vector3(-1f, 1f, 1f);
-                                
+                                //Se frena a cierta distancia para no estar constantemente pegado al Player
+                                #region
+                                if (Mathf.Abs(distancePlayerSombi) <= 1)
+                                {
+                                    parar = false;
+                                }
+                                if (Mathf.Abs(distancePlayerSombi) >= 0.5)
+                                {
+                                    detectarPlayer = true;
+                                }
+                                #endregion
+
+                                //Girar la cabeza cuando ve al Player
+                                #region
+                                Vector3 targetPlayer = player.position - cabezaVista.position;
+                                cabezaVista.right = targetPlayer;
+                                angleHeadPlayer = Vector3.Angle(targetPlayer, transform.right);
+                                //Cuando la cabeza mire arriba, el cuerpo también girará
+                                if (angleHeadPlayer > 90)
+                                {
+                                    transformSombi.localScale = new Vector3(-1f, 1f, 1f);
+                                }
+                                if (cabezaVista.rotation.z > -10)
+                                {
+                                    Debug.Log("Malasaña");
+                                }
+                                #endregion
                             }
                         }
                     }
                 }
+                if (!detectarPlayer && enemies != null)
+                {
+                    if (Vector3.Angle(enemiesVector.normalized, cabezaVista.right) < visionAngle / 2 && vidaSombi.vidaZombie > 0)
+                    {
+                        if (enemiesVector.magnitude < visionDistace)
+                        {
+                            if (!alarmaCoche)
+                            {
+                                reactivarPatrulla = 0;
+                                patrulla.enabled = false;
+                                AnimationAttack();
+                                detectarEnemy = true;
+                                if(Mathf.Abs(enemiesVector.x) <= 1)
+                                {
+                                    parar = false;
+                                }
+                                //Girar cabeza hacia la dirección enemigo
+                                #region
+                                Vector3 targetEnemy = enemies.transform.position - cabezaVista.position;
+                                cabezaVista.right = targetEnemy;
+                                angleHeadEnemy = Vector3.Angle(targetEnemy, transform.right);
+                                //Girar el cuerpo cuando la cabeza este mirando arriba
+                                if (angleHeadEnemy > 90)
+                                {
+                                    transformSombi.localScale = new Vector3(-1f, 1f, 1f);
+                                }
+                                #endregion
+                            }
+                        }
+                    }
+                }
+
             }
             if(transformSombi.localScale.x == -1)
             {
-                if (Vector3.Angle(playerVector.normalized, -cabezaVista.right) < visionAngle / 2 && vidaSombi.vidaZombie > 0)
-                {   
-                    if (playerVector.magnitude < visionDistace)
-                    {
-                        if (!alarmaCoche)
-                        {
-                            reactivarPatrulla = 0;
-                            patrulla.enabled = false;
-                            AnimationAttack();
-                            if (distancePlayerSombi >= 0.5 || distancePlayerSombi <= -0.5)
-                            {
-                                detectarPlayer = true;
-                            }
-                            else
-                            {
-                                detectarPlayer = false;
-                            }
-                            Vector3 targetPlayer = player.position - cabezaVista.position;
-                            cabezaVista.right = -targetPlayer;
-                            angleHeadPlayer = Vector3.Angle(targetPlayer, transform.right);
-                            if (angleHeadPlayer < 90)
-                            {
-                                transformSombi.localScale = new Vector3(1f, 1f, 1f);
-                            }
-                        }
-                    }
-                }
-                if (Vector3.Angle(enemiesVector.normalized, -cabezaVista.right) < visionAngle / 2 && vidaSombi.vidaZombie > 0)
+                if (!detectarEnemy)
                 {
-                    if (enemiesVector.magnitude < visionDistace)
+                    if (Vector3.Angle(playerVector.normalized, -cabezaVista.right) < visionAngle / 2 && vidaSombi.vidaZombie > 0)
                     {
-                        if (!alarmaCoche)
+                        if (playerVector.magnitude < visionDistace)
                         {
-                            reactivarPatrulla = 0;
-                            patrulla.enabled = false;
-                            AnimationAttack();
-                            detectarEnemy = true;
-                            Vector3 targetEnemy = enemies[0].position - cabezaVista.position;
-                            cabezaVista.right = -targetEnemy;
-                            angleHeadEnemy = Vector3.Angle(targetEnemy, transform.right);
-
+                            if (!alarmaCoche)
+                            {
+                                reactivarPatrulla = 0;
+                                patrulla.enabled = false;
+                                AnimationAttack();
+                                if (Mathf.Abs(distancePlayerSombi) <= 1)
+                                {
+                                    parar = false;
+                                }
+                                if (Mathf.Abs(distancePlayerSombi) >= 0.5)
+                                {
+                                    detectarPlayer = true;
+                                }
+                                
+                                Vector3 targetPlayer = player.position - cabezaVista.position;
+                                cabezaVista.right = -targetPlayer;
+                                angleHeadPlayer = Vector3.Angle(targetPlayer, transform.right);
+                                if (angleHeadPlayer < 90)
+                                {
+                                    transformSombi.localScale = new Vector3(1f, 1f, 1f);
+                                }
+                                if (cabezaVista.rotation.z < 0)
+                                {
+                                    Debug.Log("Malasaña");
+                                }
+                            }
                         }
                     }
                 }
-            }
-            
+                if (!detectarPlayer && enemies != null)
+                {
+                    if (Vector3.Angle(enemiesVector.normalized, -cabezaVista.right) < visionAngle / 2 && vidaSombi.vidaZombie > 0)
+                    {
+                        if (enemiesVector.magnitude < visionDistace)
+                        {
+                            if (!alarmaCoche)
+                            {
+                                reactivarPatrulla = 0;
+                                patrulla.enabled = false;
+                                AnimationAttack();
+                                detectarEnemy = true;
+                                if (Mathf.Abs(enemiesVector.x) <= 1)
+                                {
+                                    parar = false;
+                                }
+                                if (enemies != null)
+                                {
+                                    Vector3 targetEnemy = enemies.transform.position - cabezaVista.position;
+                                    cabezaVista.right = -targetEnemy;
+                                    angleHeadEnemy = Vector3.Angle(targetEnemy, transform.right);
+                                }
+
+                            }
+                        }
+                    }
+                }
+            } 
         }
+
+        //El Player o El Enemy han salido del rango de visión del Sombi
         else
         {
-            //Colocar desactivar patrulla aqui,playerVector.magnitude < visionDistace 
+            //Si el Sombi esta vivo, vuelve a patrullar. Player
             if (playerVector.magnitude > visionDistace && vidaSombi.vidaZombie > 0)
             {
                 reactivarPatrulla += Time.deltaTime;
@@ -216,6 +308,19 @@ public class ZombieIA : MonoBehaviour
                     patrulla.enabled = true;
                 }
             }
+            //Resetea los valores del almacenaje y vuelve a patrullar. Enemy
+            if (enemiesVector.magnitude > distanciaVista && blockTarget == 1)
+            {
+                enemies = null;
+                blockTarget = 0;
+                reactivarPatrulla += Time.deltaTime;
+                if (reactivarPatrulla >= 5)
+                {
+                    reactivarPatrulla = 5;
+                    patrulla.enabled = true;
+                }
+            }
+            
         }
     }
     private void FixedUpdate()
@@ -245,15 +350,33 @@ public class ZombieIA : MonoBehaviour
         {
             if (detectarEnemy)
             {
+
                 Vector3 movePosition = transformSombi.position;
-                movePosition.x = Mathf.MoveTowards(transform.position.x, enemiesVector.x, velocidad * Time.deltaTime);
-                rbSombi.MovePosition(movePosition);
+                if(transformSombi.localScale.x == 1)
+                {
+                    movePosition.x = Mathf.MoveTowards(transform.position.x, enemiesVector.x, -velocidad * Time.deltaTime);
+                }
+                if(transformSombi.localScale.x == -1)
+                {
+                    movePosition.x = Mathf.MoveTowards(transform.position.x, enemiesVector.x, velocidad * Time.deltaTime);
+                }
+                if (parar)
+                {
+                    rbSombi.MovePosition(movePosition);
+                }
+                
+                
             }
             if (detectarPlayer)
             {
-                Vector3 movePosition = transformSombi.position;
-                movePosition.x = Mathf.MoveTowards(transform.position.x, player.position.x, velocidad * Time.deltaTime);
-                rbSombi.MovePosition(movePosition);
+                if (parar)
+                {
+                    Vector3 movePosition = transformSombi.position;
+                    movePosition.x = Mathf.MoveTowards(transform.position.x, player.position.x, velocidad * Time.deltaTime);
+                    rbSombi.MovePosition(movePosition);
+                }
+                
+                
             }
         }
         
@@ -299,30 +422,23 @@ public class ZombieIA : MonoBehaviour
 
     void AnimationAttack()
     {
-        
-        Collider2D animationAttack;
-        animationAttack = Physics2D.OverlapCircle(transformSombi.position, radioAnimationAttack);
         RaycastHit2D IsAttack;
-        IsAttack = Physics2D.Raycast(attackCuerpo.position, attackCuerpo.right, radioAnimationAttack, playerAttack);
-        if (IsAttack)
+        IsAttack = Physics2D.Raycast(attackCuerpo.position, attackCuerpo.right, radioAnimationAttack + 1, playerAttack);
+        if (IsAttack && player.GetComponent<LifePlayer>().actualLife > 0 || IsAttack && enemies.GetComponent<ZombieLife>().vidaZombie > 0)
         {
             playerToAttack = true;
-            detectarPlayer = false;
+            //detectarPlayer = false;
             Vector3 rbSombiStop = transformSombi.position;
             rbSombi.MovePosition(rbSombiStop);
             gameObject.GetComponent<Animator>().SetTrigger("Attack");
             sonidoAttack.Play();
             Debug.Log("Golpea");
         }
-        /*if (animationAttack.gameObject.tag == "Player" || animationAttack.gameObject.tag == "Enemy")
+        if(Mathf.Abs(distancePlayerSombi) > 1 || Mathf.Abs(enemiesVector.x) > 1)
         {
-            detectarPlayer = false;
-            Vector3 rbSombiStop = transformSombi.position;
-            rbSombi.MovePosition(rbSombiStop);
-            gameObject.GetComponent<Animator>().SetTrigger("Attack");
-            sonidoAttack.Play();
-
-        }*/
+            parar = true;
+        }
+        
     }
 
     void BalaDirection()

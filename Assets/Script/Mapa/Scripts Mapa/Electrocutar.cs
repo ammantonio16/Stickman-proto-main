@@ -11,7 +11,7 @@ public class Electrocutar : MonoBehaviour
     {
         vidaPlayer = GameObject.FindWithTag("Player");
         //vidaEnemy = GameObject.FindWithTag("Enemy");
-        vidaPlayer.GetComponent<Life2Enemy>();
+        vidaPlayer.GetComponent<LifePlayer>();
         //vidaEnemy.GetComponent<Life>();
     }
     void Update()
@@ -22,7 +22,7 @@ public class Electrocutar : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy")
         {
-            vidaPlayer.GetComponent<Life2Enemy>().VidaBaja(daño);
+            vidaPlayer.GetComponent<LifePlayer>().VidaBaja(daño);
             //vidaEnemy.GetComponent<Life>().VidaBaja(daño);
         }
     }

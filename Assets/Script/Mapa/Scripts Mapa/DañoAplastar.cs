@@ -20,7 +20,7 @@ public class DañoAplastar : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             GameObject playerLife = GameObject.FindGameObjectWithTag("Player");
-            playerLife.GetComponent<Life>().VidaBaja(daño);
+            playerLife.GetComponent<PlayerLife>();
         }
     }
 }

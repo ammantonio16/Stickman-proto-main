@@ -98,7 +98,7 @@ public class ArrowMovement : MonoBehaviour
             objetoHijo = Instantiate(arrow, spawn.position, spawn.rotation);
             objetoHijo.transform.parent = objetoPadre.transform;
             objetoHijo.transform.position = objetoPadre.transform.position;
-            collision.GetComponent<Life>().VidaBaja(10);
+            
             Destroy(this.gameObject);
             Turn.turnos = false;
         }

@@ -11,6 +11,7 @@ public class Bala : MonoBehaviour
     public float daño = 10;
     GameObject cuerda;
     
+    
 
     void Start()
     {
@@ -27,41 +28,14 @@ public class Bala : MonoBehaviour
 
     }
 
-
     void Update()
     {
-        
+        Destroy(this.gameObject, 2f);
     }
-    //Trigger que detecta las colisiones de la balaPlayer
-    #region
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Enemy")
-        {
-            collision.GetComponent<Life>().VidaBaja(10);
-            Destroy(this.gameObject);
-            Turn.turnos = false;
-        }
-        if (collision.tag == "Ground")
-        {
-            Destroy(this.gameObject);
-            Turn.turnos = false;
-        }
-        if(collision.tag == "Enemy" || collision.tag == "Ground")
-        {
-            ContadordeTiempo.tiempoAcabarTurno = 20f;
-        }*/
-    
-    #endregion
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            Destroy(this.gameObject);
-            GameObject enemigoLife = GameObject.FindGameObjectWithTag("Enemy");
-            enemigoLife.GetComponent<Life>().VidaBaja(daño);
-
-        }
+        
         if (collision.gameObject.tag == "Cuerda")
         {
             Destroy(cuerda);
@@ -70,13 +44,33 @@ public class Bala : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Heracles");
+            ZombieLife vidaEnemy = collision.gameObject.GetComponentInParent<ZombieLife>();
+            //vidaEnemy.DañoRecibidoEnemy(daño);//
+            Destroy(this.gameObject);
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Cuerda")
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Sombis"))
+        {
+            Debug.Log("Pere Martínez");
+            ZombieLife vidaSombi = collision.GetComponentInParent<ZombieLife>();
+            vidaSombi.DañoRecibidoZombie(daño);
+            Destroy(this.gameObject);
+        }
+        if (collision.gameObject.tag == "Cuerda")
         {
             Destroy(this.gameObject);
             Destroy(cuerda);
+        }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            ZombieLife vidaEnemy = collision.gameObject.GetComponentInParent<ZombieLife>();
+            vidaEnemy.DañoRecibidoEnemy(daño);
+            Destroy(this.gameObject);
         }
     }
 }

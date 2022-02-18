@@ -42,8 +42,8 @@ public class ExplosionBala : MonoBehaviour
                 dañoExplosionRango = Physics2D.OverlapCircle(transform.position, rangeExpolosionDamage, layer);
                 if (dañoExplosionRango)
                 {
-                    player.GetComponent<Life>().VidaBaja(daño);
-                    enemy.GetComponent<Life>().VidaBaja(daño);
+                    player.GetComponent<PlayerLife>();
+                    enemy.GetComponent<EnemyLife>();
                 }
             }
         }

@@ -6,13 +6,14 @@ using UnityEngine.UI;
 public class TextBoxC3 : MonoBehaviour
 {
 
-    string frase = "insertar texto historia";
+    string frase = "insertar texto historia en TextBoxC3 script";
     public Text texto;
     private bool readText;
     public Animator animPressEscKey;
     public Text pressEscKey;
     private int count;
     public PausaConMovil pausaConMovil;
+    public GameObject player;
 
 
     public void Start()
@@ -37,6 +38,7 @@ public class TextBoxC3 : MonoBehaviour
             }
             if (count == 2)
             {
+                player.gameObject.SetActive(true);
                 pressEscKey.SetActive(false);
                 Destroy(texto);
                 pausaConMovil.movilAn.SetBool("PA", false);

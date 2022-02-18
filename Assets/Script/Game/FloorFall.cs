@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class FloorFall : MonoBehaviour
 {
-    public GameObject player;
     public Rigidbody2D rb;
     public float tiempo = 4f;
     public float caer;
-    public float h = 0f;
     public bool deteccion;
-    public Animator anim;
 
     private void Start()
     {

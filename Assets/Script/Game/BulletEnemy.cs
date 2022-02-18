@@ -27,53 +27,21 @@ public class BulletEnemy : MonoBehaviour
     {
        
     }
-
-    //Trigger que detecta las colisiones de la balaEnemy
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            collision.GetComponent<Life>().VidaBaja(10);
-            Destroy(this.gameObject);
-            Turn.turnos = true;
-        }
-        if (collision.gameObject.tag == "Ground")
-        {
-            //Destroy(this.gameObject);
-            Turn.turnos = true;
-        }
-        if (collision.gameObject.tag == "Player" || collision.tag == "Ground")
-        {
-            ContadordeTiempo.tiempoAcabarTurno = 20f;
-
-        }
-    }*/
-
-    /*private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {          
-            Destroy(this.gameObject);
-            GameObject playerLife = GameObject.FindGameObjectWithTag("Player");
-            playerLife.GetComponent<Life>().VidaBaja(daño);
-            
-        }
-        if (collision.gameObject.tag == "Ground")
-        {
-            Destroy(this.gameObject);
-            
-        }
-
-        
-    }*/
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(this.gameObject);
-            GameObject playerLife = GameObject.FindGameObjectWithTag("Player");
-            playerLife.GetComponent<Life>().VidaBaja(daño);
-
+            LifePlayer vidaPlayer = collision.GetComponentInParent<LifePlayer>();
+            vidaPlayer.VidaBaja(daño);
+            //GameObject enemigoLife = GameObject.FindGameObjectWithTag("Player");
+            //PlayerLife.life.health -= daño;
+        }
+        if (collision.gameObject.CompareTag("Sombis"))
+        {
+            Destroy(this.gameObject);
+            ZombieLife vidaSombi = collision.GetComponentInParent<ZombieLife>();
+            vidaSombi.DañoRecibidoZombie(daño);
         }
         if (collision.gameObject.tag == "Ground")
         {
