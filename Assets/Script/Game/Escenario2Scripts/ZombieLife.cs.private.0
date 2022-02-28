@@ -59,7 +59,7 @@ public class ZombieLife : MonoBehaviour
         vidaZombie -= daño;
         if(vidaZombie <= 0)
         {
-            
+
             gameObject.layer = 0;
             zombieIa.detectarPlayer = false;
             zombieIa.detectarEnemy = false;
@@ -102,12 +102,5 @@ public class ZombieLife : MonoBehaviour
             
         }
         
-    }
-    
-    public void muerte()
-    {
-        if (vidaZombie <= 0){
-
-        }
     }
 }

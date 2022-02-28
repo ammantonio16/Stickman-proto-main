@@ -13555,10 +13555,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3317bd44fa47b924596b744cecbaba6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   rb: {fileID: 470289075}
   tiempo: 4
   caer: 0
+  h: 0
   deteccion: 0
+  anim: {fileID: 677470917}
 --- !u!50 &470289075
 Rigidbody2D:
   serializedVersion: 4
@@ -20519,10 +20522,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3317bd44fa47b924596b744cecbaba6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   rb: {fileID: 677470915}
   tiempo: 4
   caer: 0
+  h: 0
   deteccion: 0
+  anim: {fileID: 677470917}
 --- !u!95 &677470917
 Animator:
   serializedVersion: 3
@@ -37466,7 +37472,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923675302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.21, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 495938363843346351}
@@ -46266,7 +46272,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.93, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1011438846
@@ -56681,10 +56687,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3317bd44fa47b924596b744cecbaba6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   rb: {fileID: 1179630410}
   tiempo: 4
   caer: 0
+  h: 0
   deteccion: 0
+  anim: {fileID: 677470917}
 --- !u!50 &1179630410
 Rigidbody2D:
   serializedVersion: 4
@@ -89221,6 +89230,7 @@ MonoBehaviour:
   movil: {fileID: 1922848452}
   repetirEnd: {fileID: 0}
   botones: []
+  narrativa: {fileID: 0}
 --- !u!1 &1703795234
 GameObject:
   m_ObjectHideFlags: 0
@@ -107264,10 +107274,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3317bd44fa47b924596b744cecbaba6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   rb: {fileID: 1991149515}
   tiempo: 4
   caer: 0
+  h: 0
   deteccion: 0
+  anim: {fileID: 677470917}
 --- !u!50 &1991149515
 Rigidbody2D:
   serializedVersion: 4
@@ -109538,10 +109551,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3317bd44fa47b924596b744cecbaba6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   rb: {fileID: 2088544091}
   tiempo: 4
   caer: 0
+  h: 0
   deteccion: 0
+  anim: {fileID: 677470917}
 --- !u!50 &2088544091
 Rigidbody2D:
   serializedVersion: 4
@@ -111418,7 +111434,7 @@ PrefabInstance:
     - target: {fileID: 5587431776334501473, guid: 69552d11906bb1741879bb1cf893b904,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.93
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5587431776334501473, guid: 69552d11906bb1741879bb1cf893b904,
         type: 3}
