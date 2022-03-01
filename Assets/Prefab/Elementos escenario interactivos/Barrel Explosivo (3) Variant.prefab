@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!58 &1707378321
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6411494680361028518}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.5}
+  serializedVersion: 2
+  m_Radius: 4
+--- !u!1001 &6699507646719792902
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 289174602071333981, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071333981, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071333981, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071333981, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071333981, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071333981, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071333981, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071333981, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071333981, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071333981, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071333981, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071334048, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: m_Name
+      value: Barrel Explosivo (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071334051, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: vidaenemy.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071334051, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: vidaenemy.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071334051, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: vidaenemy.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071334051, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: vidaenemy.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071334051, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: vidaenemy.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071334051, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: rangeExpolosionDamage
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 289174602071334051, guid: db7a133ce61c62f4198f0e6570e7d481,
+        type: 3}
+      propertyPath: "da\xF1o"
+      value: 200
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: db7a133ce61c62f4198f0e6570e7d481, type: 3}
+--- !u!1 &6411494680361028518 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 289174602071334048, guid: db7a133ce61c62f4198f0e6570e7d481,
+    type: 3}
+  m_PrefabInstance: {fileID: 6699507646719792902}
+  m_PrefabAsset: {fileID: 0}

@@ -1,0 +1,4 @@
+repository "Stickman proto@mariofaurogomez@cloud"
+  path "/"
+    br "/main"
+    co "/main"

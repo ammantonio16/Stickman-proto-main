@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - BalaPlayer
+  - Ascensor menu
+  - Cuerda
+  - Lancha
+  - PowerUpEmpuje
+  - Enemy
+  - PowerUpExplosion
+  - CajaPuerta
+  - CajasFuturo
+  - Cinta
+  - Electricidad
+  - Explosion
+  - ArmaRedonda
+  - MarcaGanar
+  - Agua
+  - Rama
+  - Water
+  - Background
+  - bitmap
+  - Antorcha
+  - Botones
+  - Gota
+  - BulletEnemy
+  - Botones 2
+  - PosicionBarraTareas
+  - Botones 3
+  - Botones 4
+  - Transixion
+  - Pantalla
+  - Boton Cerrar
+  - Nivel
+  - Sombis
+  - Cadaver
+  - EscalerasMano
+  - Fuego
+  - Escondite
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - PostProcessing
+  - Ground
+  - DynamicProps
+  - StaicProps
+  - DamagedProps
+  - Ally
+  - Enemy
+  - Dead
+  - Loot
+  - DeadlyCollider
+  - OnlyGroundTrigger
+  - Platform
+  - Player
+  - Caja
+  - Cinta
+  - BalaPlayer
+  - BalaEnemy
+  - AlarmaCocheOn
+  - Sombis
+  - BulletInvisible
+  - BlockBetweenCollision
+  - Cadaver
+  - Fire
+  - Escondite
+  m_SortingLayers:
+  - name: "Pesta\xF1as"
+    uniqueID: 3188289863
+    locked: 0
+  - name: BackGround Cueva
+    uniqueID: 1192975471
+    locked: 0
+  - name: Decoracion Cueva
+    uniqueID: 2636028381
+    locked: 0
+  - name: BackGround
+    uniqueID: 3082918139
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 795483025
+    locked: 0
+  - name: Particulas
+    uniqueID: 794616035
+    locked: 0
+  - name: BackGroundUp
+    uniqueID: 3848858133
+    locked: 0
