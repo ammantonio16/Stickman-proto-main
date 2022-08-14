@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3715993107967646793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3715993107967646795}
+  - component: {fileID: 3715993107967646792}
+  m_Layer: 0
+  m_Name: ListaSoldiersActiveInScene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3715993107967646795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3715993107967646793}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3715993107967646792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3715993107967646793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f8bd5a0dcf1344f823db74dc98faf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soldiersStatus:
+  - SoldierName: Soldado de Espalda 1.1
+    statusVida: 1
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Normal 1.1
+    statusVida: 1
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Normal Cientifico 1.1
+    statusVida: 1
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Normal 1.2
+    statusVida: 3
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Somnoliento
+    statusVida: 1
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Normal 2.1
+    statusVida: 3
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Normal 2.2
+    statusVida: 3
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Normal Descargar
+    statusVida: 3
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Normal Cargar
+    statusVida: 3
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Somnoliento 2
+    statusVida: 1
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Normal Arriba 3.1
+    statusVida: 3
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Normal 3.1
+    statusVida: 1
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Normal 3.2
+    statusVida: 1
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Normal 3.3
+    statusVida: 1
+    position_x: 0
+    position_y: 0
+  - SoldierName: Soldado Tejado 3.1
+    statusVida: 3
+    position_x: 0
+    position_y: 0
